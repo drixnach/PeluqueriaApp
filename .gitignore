@@ -427,3 +427,35 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# --- FRONTEND (React) ---
+node_modules/
+build/
+dist/
+*.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- MOBILE (React Native) ---
+# Android
+android/app/build/
+android/.gradle/
+android/.idea/
+android/local.properties
+android/.cxx/
+
+# iOS
+ios/build/
+ios/Pods/
+ios/*.xcworkspace
+ios/*.xcuserstate
+ios/*.xcuserdata
+ios/DerivedData/
+
+# Metro bundler cache / Expo
+.expo/
+.expo-shared/
+.expo-cli/
+.expo-packager-cache/
+.expo-bundler-cache/
