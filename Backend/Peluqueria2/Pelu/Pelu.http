@@ -1,0 +1,6 @@
+@Pelu_HostAddress = http://localhost:5143
+
+GET {{Pelu_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
