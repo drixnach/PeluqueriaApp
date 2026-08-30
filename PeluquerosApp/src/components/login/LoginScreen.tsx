@@ -9,6 +9,7 @@ import { useLogin } from '@/hooks/useLogin';
 import { LoginHeader } from './LoginHeader';
 import { LoginForm } from './LoginForm';
 import { LoginButton } from './LoginButton';
+import { ScrollView } from 'react-native-reanimated/lib/typescript/Animated';
 
 export function LoginScreen() {
   const {
@@ -25,20 +26,22 @@ export function LoginScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <View style={styles.formCard}>
-        <LoginHeader />
-        <LoginForm
-          email={email}
-          setEmail={setEmail}
-          numPelu={numPelu}
-          setNumPelu={setNumPelu}
-          password={password}
-          setPassword={setPassword}
-          peluqueria={peluqueria}
-          setPeluqueria={setPeluqueria}
-        />
-        <LoginButton isLoading={isLoading} onPress={handleLogin} />
-      </View>
+      <ScrollView>
+        <View style={styles.formCard}>
+          <LoginHeader />
+          <LoginForm
+            email={email}
+            setEmail={setEmail}
+            numPelu={numPelu}
+            setNumPelu={setNumPelu}
+            password={password}
+            setPassword={setPassword}
+            peluqueria={peluqueria}
+            setPeluqueria={setPeluqueria}
+          />
+          <LoginButton isLoading={isLoading} onPress={handleLogin} />
+        </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
