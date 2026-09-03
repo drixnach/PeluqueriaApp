@@ -1,46 +1,28 @@
-# PeluquerosApp
+# Agenda para Peluqueros
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Descripción
 
-## Get started
+Aplicación móvil desarrollada con **Expo / React Native**, pensada para peluqueros y barberos que necesitan organizar su jornada de forma sencilla desde el celular.
 
-1. Install dependencies
+El proyecto busca resolver la gestión desordenada de turnos, clientes y comisiones en peluquerías y barberías pequeñas, donde actualmente suelen utilizarse agendas de papel, WhatsApp o cuadernos. La aplicación reúne en un solo lugar:
 
-   ```bash
-   npm install
-   ```
+- La agenda de turnos del día.
+- El historial de cada cliente, incluyendo los servicios realizados y sus visitas.
+- El cálculo de comisiones y las estadísticas de ventas del peluquero.
 
-2. Start the app
+## Integrantes
 
-   ```bash
-   npx expo start
-   ```
+- Francisco Gomez
+- Ignacio Moreyra
 
-In the output, you'll find options to open the app in a
+## Features del proyecto
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+| # | Feature | Descripción | Estado |
+|---|---------|-------------|--------|
+| 1 | **Login** | Inicio de sesión de usuarios, implementado con datos estáticos de prueba y sin conexión a una API por el momento. | ✅ Hecho |
+| 2 | **Agenda / Calendario de turnos** | Vista de calendario, similar a Microsoft Teams, para visualizar los turnos y acceder a su detalle al seleccionarlos. | 🔜 Planeado |
+| 3 | **Historial de clientes** | Información básica del cliente, servicios realizados anteriormente e historial de visitas. | 🔜 Planeado |
+| 4 | **Comisiones y estadísticas personales** | Servicios realizados, ventas generadas, comisión acumulada y estadísticas por día o mes. | 🔜 Planeado |
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+> Este listado se actualizará a medida que el proyecto avance durante el semestre.
 
-## Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
