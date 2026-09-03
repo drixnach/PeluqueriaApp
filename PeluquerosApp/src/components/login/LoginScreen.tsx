@@ -11,6 +11,7 @@ import { LoginHeader } from './LoginHeader';
 import { LoginForm } from './LoginForm';
 import { LoginButton } from './LoginButton';
 import { ScrollView } from 'react-native';
+import { router } from 'expo-router';
 
 export function LoginScreen() {
 
@@ -44,6 +45,8 @@ export function LoginScreen() {
         setTimeout(() => {
           setIsLoading(false);
           Alert.alert('Login correcto', `Bienvenido ${email} a la peluquería ${peluqueria}`);
+
+          router.push('/inicio');
         }, 1500);
       };
 
