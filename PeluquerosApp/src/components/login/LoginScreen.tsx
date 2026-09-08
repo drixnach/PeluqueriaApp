@@ -28,7 +28,7 @@ export function LoginScreen() {
             }
 
         if(!password){
-            Alert.alert('Ingrese su contraseña')
+            Alert.alert('Error','Ingrese su contraseña')
             return false
             }
 

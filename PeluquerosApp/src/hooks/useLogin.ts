@@ -10,7 +10,7 @@ export function useLogin() {
 
   const handleLogin = () => {
     if (!email || !password) {
-      alert('Please fill out all fields.');
+      alert('Completa los campos.');
       return;
     }
 
@@ -18,8 +18,7 @@ export function useLogin() {
 
     setTimeout(() => {
       setIsLoading(false);
-      console.log('Logging in with:', { email, password, numPelu, peluqueria });
-      alert('Login successful!');
+      alert('Bienvenido!');
       router.push('/inicio'); 
     }, 2000);
   };
