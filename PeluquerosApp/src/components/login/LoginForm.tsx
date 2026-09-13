@@ -10,6 +10,8 @@ type Props = {
   setNumPelu: (v: string) => void;
   password: string;
   setPassword: (v: string) => void;
+  peluqueria: string;
+  setPeluqueria: (v: string) => void;
 };
 
 export function LoginForm({
