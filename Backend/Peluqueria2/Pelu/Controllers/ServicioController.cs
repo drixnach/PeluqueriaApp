@@ -36,9 +36,10 @@ namespace Pelu.Controllers
             });
             return Ok(result);
         }
-       
+
 
         // GET api/Servicio/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<ServicioReadDTO>> GetServicio(int id)
         {
@@ -58,6 +59,7 @@ namespace Pelu.Controllers
         }
 
         // POST api/Servicio
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<ServicioReadDTO>> PostServicio([FromBody] ServicioCreateDTO dto)
         {
@@ -85,6 +87,7 @@ namespace Pelu.Controllers
         }
 
         // PUT api/Servicio/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutServicio(int id, ServicioCreateDTO dto)
         {
@@ -103,6 +106,7 @@ namespace Pelu.Controllers
         }
 
         // DELETE api/Servicio/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteServicio(int id)
         {

@@ -51,6 +51,7 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Peluquero/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluquero(int id)
         {

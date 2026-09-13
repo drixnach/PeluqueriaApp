@@ -42,6 +42,7 @@ namespace Pelu.Controllers
         }
 
         // GET api/Peluqueria/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<PeluqueriaReadDTO>> GetPeluqueria(int id)
         {
@@ -65,6 +66,7 @@ namespace Pelu.Controllers
         }
 
         // POST api/Peluqueria
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<PeluqueriaReadDTO>> PostPeluqueria(PeluqueriaCreateDTO dto)
         {
@@ -96,6 +98,7 @@ namespace Pelu.Controllers
         }
 
         // PUT api/Peluqueria/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPeluqueria(int id, PeluqueriaCreateDTO dto)
         {
@@ -114,6 +117,7 @@ namespace Pelu.Controllers
         }
 
         // DELETE api/Peluqueria/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePeluqueria(int id)
         {
@@ -128,6 +132,7 @@ namespace Pelu.Controllers
         }
 
         //GET api/Peluqueria/5/Horarios
+        [AllowAnonymous]
         [HttpGet("{id}/Horarios")]
 
         public async Task<ActionResult<IEnumerable<HorariosPeluqueriaReadDTO>>> GetHorarios(int id)
@@ -146,6 +151,7 @@ namespace Pelu.Controllers
         }
 
         // POST api/Peluqueria/5/Horarios
+        [Authorize(Roles = "Admin")]
         [HttpPost("{id}/Horarios")]
 
         public async Task<ActionResult<HorariosPeluqueriaReadDTO>>PostHorario(int id, HorariosPeluqueriaCreateDTO dto)
@@ -184,6 +190,7 @@ namespace Pelu.Controllers
         }
 
         //Delete api/Peluqueria/5/Horarios/{horarioId}
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}/Horarios/{horarioId}")]
 
         public async Task<IActionResult> DeleteHorario(int id,int horarioId)
