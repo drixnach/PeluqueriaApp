@@ -1,5 +1,69 @@
 [
   {
+    "ContainingType": "Pelu.Controllers.AuthController",
+    "Method": "BootstrapAdmin",
+    "RelativePath": "api/Auth/bootstrap-admin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Pelu.Models.DTOs.RegisterStaffRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pelu.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Pelu.Models.DTOs.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pelu.Controllers.AuthController",
+    "Method": "RegisterStaff",
+    "RelativePath": "api/Auth/Register-Staff",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Pelu.Models.DTOs.RegisterStaffRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pelu.Controllers.AuthController",
+    "Method": "RegisterCliente",
+    "RelativePath": "api/Auth/RgisterCliente",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Pelu.Models.DTOs.RegisterClienteRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Pelu.Controllers.ClientesController",
     "Method": "GetClientes",
     "RelativePath": "api/Clientes",

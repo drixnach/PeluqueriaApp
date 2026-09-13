@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 
 import { obtenerPeluqueros, obtenerHorariosPeluquero } from "../../services/PeluqueroServices";
 import { obtenerClientes, crearCliente } from "../../services/ClienteServices";
@@ -6,6 +6,7 @@ import { obtenerServicios } from "../../services/ServiciosServices";
 import { obtenerServiciosDePeluquero } from "../../services/PeluqueroxServicioServices";
 import { obtenerPeluquerias } from "../../services/PeluqueriaServices";
 import { crearTurno } from "../../services/TurnoServices";
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import FormDatosCliente from './FormDatosCliente';
 import SelectorServicio from './SelectorServicio';
@@ -22,6 +23,8 @@ export default function VistaCliente({ turnosGlobales = [], clientesGlobales = [
   const [sucursales, setSucursales] = useState([]);
   const [peluquerosFiltrados, setPeluquerosFiltrados] = useState([]);
   const [horariosPeluquero, setHorariosPeluquero] = useState([]);
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const recaptchaRef = useRef(null);
 
   useEffect(() => {
     obtenerPeluqueros()
@@ -181,6 +184,11 @@ export default function VistaCliente({ turnosGlobales = [], clientesGlobales = [
   const manejarReserva = async (e) => {
     e.preventDefault();
 
+    if (!captchaToken){
+      alert("Por favor completa el captcha")
+      return
+    }
+
     if (!form.nombre || !form.apellido || !form.telefono || !form.correo || !form.sexo ||
         !form.sucursal || !form.servicio || !form.peluquero || !form.fecha || !form.hora) {
       alert("Por favor, completá todos los pasos antes de confirmar.");
@@ -198,8 +206,8 @@ export default function VistaCliente({ turnosGlobales = [], clientesGlobales = [
 
       let clienteCreado;
       const clienteExiste = clientesGlobales.find(
-        c => c.nombre.toLowerCase() === form.nombre.toLowerCase() &&
-             c.apellido.toLowerCase() === form.apellido.toLowerCase()
+        c =>c.nombre.toLowerCase() === form.nombre.toLowerCase() &&
+            c.apellido.toLowerCase() === form.apellido.toLowerCase()
       );
 
       if (!clienteExiste) {
@@ -228,7 +236,8 @@ export default function VistaCliente({ turnosGlobales = [], clientesGlobales = [
         peluqueriaId: peluqueriaSeleccionada.peluqueriaId,
         fechaInicioTurno: fechaInicioStr,
         fechaFinTurno: fechaFinStr,
-        serviciosIds: [servicioSeleccionado.servicioId]
+        serviciosIds: [servicioSeleccionado.servicioId],
+        captchaToken:captchaToken
       };
 
       await crearTurno(turno);
@@ -247,6 +256,9 @@ export default function VistaCliente({ turnosGlobales = [], clientesGlobales = [
       console.error(error);
       alert("Error al crear turno");
     }
+    
+    recaptchaRef.current.reset();
+    setCaptchaToken(null);
   };
 
   return (
@@ -290,7 +302,13 @@ export default function VistaCliente({ turnosGlobales = [], clientesGlobales = [
               estaDisponible={estaDisponible}
             />
 
-            <button type="submit" disabled={!form.nombre || !form.apellido || !form.telefono || !form.correo || !form.sexo || !form.sucursal || !form.servicio || !form.peluquero || !form.fecha || !form.hora}
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey='6Lf6lrgtAAAAAAOPBORBvJpzj_-hwN3XQQt6aHfs'
+              onChange={(token)=>setCaptchaToken(token)}
+              onExpired={()=>setCaptchaToken(null)}/>
+
+            <button type="submit" disabled={!captchaToken||!form.nombre || !form.apellido || !form.telefono || !form.correo || !form.sexo || !form.sucursal || !form.servicio || !form.peluquero || !form.fecha || !form.hora}
               className="w-full bg-sky-500 text-white font-bold py-4 rounded-2xl mt-6 disabled:opacity-50 active:scale-[0.98] transition-transform shadow-lg shadow-sky-500/30 disabled:shadow-none cursor-pointer">
               CONFIRMAR MI TURNO
             </button>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Aprendiendo a programar2\\Tec dev web\\Pry int2\\Peluqueria v1.0\\Backend\\Peluqueria2\\Pelu\\Pelu.csproj": {}
+    "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Pelu.csproj": {}
   },
   "projects": {
-    "E:\\Aprendiendo a programar2\\Tec dev web\\Pry int2\\Peluqueria v1.0\\Backend\\Peluqueria2\\Pelu\\Pelu.csproj": {
+    "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Pelu.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Aprendiendo a programar2\\Tec dev web\\Pry int2\\Peluqueria v1.0\\Backend\\Peluqueria2\\Pelu\\Pelu.csproj",
+        "projectUniqueName": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Pelu.csproj",
         "projectName": "Pelu",
-        "projectPath": "E:\\Aprendiendo a programar2\\Tec dev web\\Pry int2\\Peluqueria v1.0\\Backend\\Peluqueria2\\Pelu\\Pelu.csproj",
+        "projectPath": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Pelu.csproj",
         "packagesPath": "C:\\Users\\drixn\\.nuget\\packages\\",
-        "outputPath": "E:\\Aprendiendo a programar2\\Tec dev web\\Pry int2\\Peluqueria v1.0\\Backend\\Peluqueria2\\Pelu\\obj\\",
+        "outputPath": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\Visual Studio\\Herramientas y SDK\\NuGetPackages"
@@ -53,6 +53,14 @@
           "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.30, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.3.12, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.26, )"

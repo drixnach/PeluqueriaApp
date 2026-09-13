@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pelu.Models;   
 using Pelu.Models.DTOs;
+using Pelu.Services;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace Pelu.Controllers
@@ -14,13 +16,16 @@ namespace Pelu.Controllers
     public class TurnoController : ControllerBase
     {
         private readonly PeluqueriaDbContext _context;
+        private readonly CaptchaService _captchaService;
 
-        public TurnoController(PeluqueriaDbContext context)
+        public TurnoController(PeluqueriaDbContext context, CaptchaService captchaService)
         {
             _context = context;
+            _captchaService = captchaService;
         }
 
         // GET: api/Turno
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TurnosReadDTO>>> GetTurnos()
         {
@@ -52,6 +57,7 @@ namespace Pelu.Controllers
         }
 
         // GET api/Turno/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<TurnosReadDTO>> GetTurno(int id)
         {
@@ -89,6 +95,7 @@ namespace Pelu.Controllers
         }
 
         // POST api/Turno
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<TurnosReadDTO>> PostTurno(TurnosCreateDTO dto)
         {
@@ -198,6 +205,7 @@ namespace Pelu.Controllers
         }
 
         // PUT api/Turno/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTurno(int id, TurnosCreateDTO dto)
         {
@@ -284,6 +292,7 @@ namespace Pelu.Controllers
         }
 
         // DELETE api/Turno/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTurno(int id)
         {

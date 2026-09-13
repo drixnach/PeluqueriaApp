@@ -8,6 +8,7 @@
         public DateTime FechaInicioTurno { get; set; }
         public DateTime FechaFinTurno { get; set; }
         public List<int>? ServiciosIds { get; set; } = new();
+        public string? CaptchaToken { get; set; }
     }
 
     public class ServiciosTurnoDTO

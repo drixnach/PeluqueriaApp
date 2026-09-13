@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pelu.Models;  
 using Pelu.Models.DTOs;    
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pelu.Controllers
 {
@@ -20,6 +21,7 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Servicio
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServicioReadDTO>>> GetServicios()
         {

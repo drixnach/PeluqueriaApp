@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pelu.Models;
 using Pelu.Models.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pelu.Controllers
 {
@@ -22,6 +23,7 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Clientes
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClienteReadDto>>> GetClientes()
         {
@@ -40,6 +42,7 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Clientes/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<ClienteReadDto>> GetCliente(int id)
         {
@@ -65,6 +68,7 @@ namespace Pelu.Controllers
 
         // PUT: api/Clientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, ClienteCreateDTO dto)
 
@@ -85,9 +89,10 @@ namespace Pelu.Controllers
             return NoContent();
         }
 
-            // POST: api/Clientes
-            // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-            [HttpPost]
+        // POST: api/Clientes
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [AllowAnonymous]
+        [HttpPost]
         public async Task<ActionResult<ClienteReadDto>> PostCliente(ClienteCreateDTO clienteDto)
         {
             var cliente = new Cliente
@@ -106,6 +111,7 @@ namespace Pelu.Controllers
         }
 
         // DELETE: api/Clientes/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(int id)
         {
