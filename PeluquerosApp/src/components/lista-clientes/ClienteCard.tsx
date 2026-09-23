@@ -1,5 +1,6 @@
 import { SymbolView } from "expo-symbols";
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
 import type { Cliente } from "@/constants/clientes";
 
 type ClienteCardProps = {
@@ -26,11 +27,34 @@ export function ClienteCard({ clientes }: ClienteCardProps){
                 size={32}
               />
               </View>
-              <View style={styles.datos}>
-                <Text style={styles.nombre}>{item.nombre} {item.apellido}</Text>
-                <Text style={styles.telefono}>{item.telefono}</Text>
-                <Text style={styles.email}>{item.correo}</Text>
-              </View>
+                <View style={styles.datos}>
+                  <Text style={styles.nombre}>{item.nombre} {item.apellido}</Text>
+                  <Text style={styles.telefono}>{item.telefono}</Text>
+                  <Text style={styles.email}>{item.correo}</Text>
+                </View>
+                
+                <Pressable
+                  style={({ pressed }) => [styles.botonInfo, pressed && styles.botonInfoPressed]}
+                  onPress={() =>
+                  router.push({
+                      pathname: '/cliente-detalle',
+                      params: { id: item.id },
+                    })
+                  }
+                  hitSlop={8}
+                >
+                <SymbolView
+                  name={{
+                    ios: 'info.circle',
+                    android: 'info',
+                    web: 'info',
+                  }}
+                  tintColor="#5f6368"
+                  size={18}
+                  style={styles.infoIcono}
+                />
+              </Pressable>
+
             </View>
           )}
         />
@@ -89,6 +113,26 @@ const styles = StyleSheet.create({
   email: {
     color: '#7a8087',
     fontSize: 12,
+  },
+  botonInfo: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    backgroundColor: '#f1f3f5',
+    borderWidth: 1,
+    borderColor: '#e6e8eb',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+  },
+  botonInfoPressed: {
+    opacity: 0.6,
+  },
+  infoIcono: {
+    width: 28,
+    height: 28,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
