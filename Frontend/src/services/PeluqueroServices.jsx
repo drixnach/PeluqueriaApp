@@ -100,3 +100,17 @@ export async function eliminarHorarioPeluquero(peluqueroId, horarioId) {
     throw new Error("Error al eliminar horario");
   }
 }
+
+export async function obtenerPeluquerosAdmin() {
+  const response= await fetch(`${URL}/admin`,{
+    headers:{
+      "Autorizaton":`Bearer ${localStorage.getItem("token")}`
+    }
+  });
+
+  if(!response.ok){
+    throw new Error("Error al obtener peluqueros admin")
+  }
+
+  return await response.json()
+}

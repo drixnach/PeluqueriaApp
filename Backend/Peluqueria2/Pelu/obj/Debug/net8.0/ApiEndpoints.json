@@ -488,7 +488,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Pelu.Models.DTOs.PeluqueroReadDto, Pelu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Pelu.Models.DTOs.PeluqueroPublicDTO, Pelu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -526,7 +526,7 @@
   },
   {
     "ContainingType": "Pelu.Controllers.PeluqueroController",
-    "Method": "GetPeluquero",
+    "Method": "GetPeluqueroAdmin",
     "RelativePath": "api/Peluquero/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -664,6 +664,26 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Pelu.Controllers.PeluqueroController",
+    "Method": "GetPeluquerosAdmin",
+    "RelativePath": "api/Peluquero/admin",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Pelu.Models.DTOs.PeluqueroReadDto, Pelu, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "Pelu.Controllers.PeluqueroxServicioController",

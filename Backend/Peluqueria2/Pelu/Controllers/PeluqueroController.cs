@@ -22,10 +22,37 @@ namespace Pelu.Controllers
             _context = context;
         }
 
-        // GET: api/Peluquero
-        [AllowAnonymous]
+        //GET: api/Peluquero/Public
+
+        
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluqueros()
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<PeluqueroPublicDTO>>> GetPeluqueros()
+        {
+            var peluqueros=await _context .Peluqueros
+                .Include(p=>p.Peluqueria)
+                .Include(p=>p.PeluqueroxServicios)
+                    .ThenInclude(px => px.Servicio)
+                    .ToListAsync();
+
+            var dtoList = peluqueros.Select(p => new PeluqueroPublicDTO
+            {
+                PeluqueroId = p.PeluqueroId,
+                Nombre = p.Nombre,
+                Apellido = p.Apellido,
+                Peluqueria = p.Peluqueria?.Nombre,
+                Servicios = p.PeluqueroxServicios.Select(px => px.Servicio.Nombre).ToList()
+            }).ToList();
+
+            return Ok(dtoList);
+        }
+
+
+        // GET: api/Peluquero
+        
+        [HttpGet("admin")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluquerosAdmin()
         {
             var peluqueros = await _context.Peluqueros
                 .Include(p => p.Peluqueria)
@@ -51,9 +78,9 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Peluquero/5
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluquero(int id)
+        public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluqueroAdmin(int id)
         {
             var peluquero = await _context.Peluqueros
            .Include(p => p.Peluqueria)

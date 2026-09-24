@@ -23,7 +23,7 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Clientes
-        [AllowAnonymous]
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClienteReadDto>>> GetClientes()
         {
@@ -42,7 +42,7 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Clientes/5
-        [AllowAnonymous]
+        [Authorize(Roles ="Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<ClienteReadDto>> GetCliente(int id)
         {
@@ -91,7 +91,7 @@ namespace Pelu.Controllers
 
         // POST: api/Clientes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [AllowAnonymous]
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<ActionResult<ClienteReadDto>> PostCliente(ClienteCreateDTO clienteDto)
         {
@@ -108,6 +108,54 @@ namespace Pelu.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCliente", new { id = cliente.ClienteId }, cliente);
+        }
+
+        //POST: api/Clientes/buscar-o-crear
+        [AllowAnonymous]
+        [HttpPost("buscar-o-crear")]
+        public async Task<ActionResult<ClienteReadDto>>BuscarOCrearCliente(ClienteCreateDTO dto)
+        {
+            if (string.IsNullOrEmpty(dto.Correo))
+            {
+                return BadRequest("El correo es obligatorio para buscar o crear un cliente.");
+            }
+
+            var existe= await _context.Clientes.FirstOrDefaultAsync(c => c.Correo == dto.Correo);
+
+            if (existe != null)
+            {
+                return Ok(new ClienteReadDto
+                {
+                    ClienteId = existe.ClienteId,
+                    Nombre = existe.Nombre,
+                    Apellido = existe.Apellido,
+                    Correo = existe.Correo,
+                    Telefono = existe.Telefono,
+                    Sexo = existe.Sexo
+                });
+            }
+
+            var cliente = new Cliente
+            {
+                Nombre = dto.Nombre,
+                Apellido = dto.Apellido,
+                Correo = dto.Correo,
+                Sexo = dto.Sexo,
+                Telefono = dto.Telefono
+            };
+
+            _context.Clientes.Add(cliente);
+            await _context.SaveChangesAsync();
+
+            return Ok(new ClienteReadDto
+            {
+                ClienteId = cliente.ClienteId,
+                Nombre = cliente.Nombre,
+                Apellido = cliente.Apellido,
+                Correo = cliente.Correo,
+                Telefono = cliente.Telefono,
+                Sexo = cliente.Sexo
+            });
         }
 
         // DELETE: api/Clientes/5
