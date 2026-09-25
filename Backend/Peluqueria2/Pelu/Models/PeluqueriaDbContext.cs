@@ -15,6 +15,7 @@ public partial class PeluqueriaDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Usuarios> Usuarios { get; set; }
     public virtual DbSet<Cliente> Clientes { get; set; }
 
     public virtual DbSet<DetalleTurno> DetalleTurnos { get; set; }
@@ -188,6 +189,25 @@ public partial class PeluqueriaDbContext : DbContext
             entity.HasOne(d => d.Peluquero).WithMany(p => p.Turnos)
                 .HasForeignKey(d => d.PeluqueroId)
                 .HasConstraintName("FK_Turno_Peluquero");
+        });
+
+        modelBuilder.Entity<Usuarios>(entity =>
+        {
+            entity.HasKey(e => e.UsuarioId);
+            entity.HasIndex(e => e.Email).IsUnique();
+
+            entity.Property(e => e.Email).IsRequired().HasMaxLength(150);
+            entity.Property(e=>e.Rol).IsRequired().HasMaxLength(50);
+
+            entity.HasOne(u=>u.Cliente)
+                .WithOne()
+                .HasForeignKey<Usuarios>(u => u.ClienteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(u => u.Peluquero)
+                .WithOne()
+                .HasForeignKey<Usuarios>(u => u.PeluqueroId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         OnModelCreatingPartial(modelBuilder);

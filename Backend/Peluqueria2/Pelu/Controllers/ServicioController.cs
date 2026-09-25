@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pelu.Models;  
 using Pelu.Models.DTOs;    
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pelu.Controllers
 {
@@ -20,6 +21,7 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Servicio
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServicioReadDTO>>> GetServicios()
         {
@@ -34,9 +36,10 @@ namespace Pelu.Controllers
             });
             return Ok(result);
         }
-       
+
 
         // GET api/Servicio/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<ServicioReadDTO>> GetServicio(int id)
         {
@@ -56,6 +59,7 @@ namespace Pelu.Controllers
         }
 
         // POST api/Servicio
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<ServicioReadDTO>> PostServicio([FromBody] ServicioCreateDTO dto)
         {
@@ -83,6 +87,7 @@ namespace Pelu.Controllers
         }
 
         // PUT api/Servicio/5
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutServicio(int id, ServicioCreateDTO dto)
         {
@@ -101,6 +106,7 @@ namespace Pelu.Controllers
         }
 
         // DELETE api/Servicio/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteServicio(int id)
         {

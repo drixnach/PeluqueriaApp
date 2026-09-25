@@ -81,3 +81,17 @@ export async function eliminarCliente(id) {
     throw new Error("Error al eliminar cliente");
   }
 }
+
+export async function buscarOCrearCliente(datosCliente) {
+  const response=await fetch(`${API_URL}/buscar-o-crear`,{
+    method:"POST",
+    headers:{"content-Type":"application/json"},
+    body:JSON.stringify(datosCliente)
+  })
+
+  if(!response.ok){
+    throw new Error("error al crear cliente")
+  }
+
+  return await response.json()
+}

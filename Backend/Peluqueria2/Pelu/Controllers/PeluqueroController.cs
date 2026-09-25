@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pelu.Models;
 using Pelu.Models.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Pelu.Controllers
 {
@@ -21,9 +22,37 @@ namespace Pelu.Controllers
             _context = context;
         }
 
-        // GET: api/Peluquero
+        //GET: api/Peluquero/Public
+
+        
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluqueros()
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<PeluqueroPublicDTO>>> GetPeluqueros()
+        {
+            var peluqueros=await _context .Peluqueros
+                .Include(p=>p.Peluqueria)
+                .Include(p=>p.PeluqueroxServicios)
+                    .ThenInclude(px => px.Servicio)
+                    .ToListAsync();
+
+            var dtoList = peluqueros.Select(p => new PeluqueroPublicDTO
+            {
+                PeluqueroId = p.PeluqueroId,
+                Nombre = p.Nombre,
+                Apellido = p.Apellido,
+                Peluqueria = p.Peluqueria?.Nombre,
+                Servicios = p.PeluqueroxServicios.Select(px => px.Servicio.Nombre).ToList()
+            }).ToList();
+
+            return Ok(dtoList);
+        }
+
+
+        // GET: api/Peluquero
+        
+        [HttpGet("admin")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluquerosAdmin()
         {
             var peluqueros = await _context.Peluqueros
                 .Include(p => p.Peluqueria)
@@ -49,8 +78,9 @@ namespace Pelu.Controllers
         }
 
         // GET: api/Peluquero/5
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluquero(int id)
+        public async Task<ActionResult<IEnumerable<PeluqueroReadDto>>> GetPeluqueroAdmin(int id)
         {
             var peluquero = await _context.Peluqueros
            .Include(p => p.Peluqueria)
@@ -79,6 +109,7 @@ namespace Pelu.Controllers
 
         // PUT: api/Peluquero/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPeluquero(int id, PeluqueroCreateDto dto)
         {
@@ -140,6 +171,7 @@ namespace Pelu.Controllers
 
         // POST: api/Peluquero
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<PeluqueroReadDto>> PostPeluquero(PeluqueroCreateDto dto)
         {
@@ -219,6 +251,7 @@ namespace Pelu.Controllers
         }
 
         // DELETE: api/Peluquero/5
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePeluquero(int id)
         {
@@ -248,6 +281,7 @@ namespace Pelu.Controllers
         }
 
         //GET: api/Peluquero/{id}/Horarios
+        [AllowAnonymous]
         [HttpGet("{id}/Horarios")]
 
         public async Task<ActionResult<IEnumerable<HorariosPeluqueroReadDTO>>>GetHorariosPeluquero(int id)
@@ -266,6 +300,7 @@ namespace Pelu.Controllers
         }
 
         // POST: api/Peluquero/{id}/Horarios
+        [Authorize(Roles = "Admin")]
         [HttpPost("{id}/Horarios")]
 
         public async Task<ActionResult<HorariosPeluqueroReadDTO>>PostHorario(int id,[FromBody] HorariosPeluqueroCreateDTO dto)
@@ -300,7 +335,9 @@ namespace Pelu.Controllers
         }
 
         //DELETE: api/Peluquero/{id}/Horarios/{horarioId}
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}/Horarios/{horarioId}")]
+        
 
         public async Task<IActionResult>DeleteHorario(int id, int horarioId)
         {

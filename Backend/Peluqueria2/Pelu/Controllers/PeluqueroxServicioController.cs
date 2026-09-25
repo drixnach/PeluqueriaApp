@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pelu.Models;
 using Pelu.Models.DTOs;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace Pelu.Controllers
@@ -21,6 +22,7 @@ namespace Pelu.Controllers
         }
 
         // GET: PeluqueroxServicio/Peluquero/5
+        [AllowAnonymous]
         [HttpGet("Peluquero/{id}")]
         public async Task<ActionResult<IEnumerable<PeluqueroxServicioReadDTO>>> GetServicioxPeluquero(int id)
         {
@@ -41,6 +43,7 @@ namespace Pelu.Controllers
 
 
         // POST: PeluqueroxServicioController/Peluquero/5
+        [Authorize(Roles = "Admin")]
         [HttpPost("Peluquero/{id}")]
 
         public async Task<ActionResult<PeluqueroxServicioReadDTO>> PostServicioPeluquero(int id, PeluqueroxServicioCreateDTO dto)
@@ -83,7 +86,7 @@ namespace Pelu.Controllers
         }
 
         //DELETE:api/PeluqueroxServicio/Peluquero/5/Servicio/3
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Peluquero/{peluqueroId}/Servicio/{servicioId}")]
         public async Task<ActionResult> DeleteServicioPeluquero(int peluqueroId, int servicioId)
         {
