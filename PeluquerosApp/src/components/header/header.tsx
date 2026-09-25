@@ -6,7 +6,7 @@ export default function Header() {
     return (
         <SafeAreaView edges={["top"]} style={styles.safeArea}>
             <View style={styles.container}>
-                <Text style={styles.title}>Peluqueria</Text>
+                <Text style={styles.titulo}>Peluqueria</Text>
                 <Image
                     source={require('../../../assets/images/logo-pelu.png')}
                     style={styles.logo}
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor: "#f0f0f0",
     },
-    title: {
+    titulo: {
         fontSize: 24,
         fontWeight: "bold",
         color: "#202124",

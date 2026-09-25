@@ -4,8 +4,8 @@ import { CLIENTES } from '@/constants/clientes';
 export function ListaHeader(){
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Clientes</Text>
-            <Text style={styles.subtitle}>{CLIENTES.length} registrados</Text>
+            <Text style={styles.titulo}>Clientes</Text>
+            <Text style={styles.subtitulo}>{CLIENTES.length} registrados</Text>
         </View>
     )
 }
@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
         paddingTop: 22,
         paddingBottom: 4,
     },
-    title: {
+    titulo: {
         color: '#202124',
         fontSize: 26,
         fontWeight: '700',
         letterSpacing: -0.4,
     },
-    subtitle: {
+    subtitulo: {
         color: '#7a8087',
         fontSize: 13,
         marginTop: 4,

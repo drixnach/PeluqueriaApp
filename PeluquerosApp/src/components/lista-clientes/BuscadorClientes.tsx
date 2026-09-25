@@ -9,7 +9,7 @@ type BuscadorClientesProps = {
 export function BuscadorClientes({ query, onQueryChange }: BuscadorClientesProps) {
   return (
     <View style={styles.container}>
-      <View style={styles.inputWrapper}>
+      <View style={styles.inputContainer}>
         <SymbolView
           name={{
             ios: 'magnifyingglass',
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     paddingTop: 18,
     paddingBottom: 4,
   },
-  inputWrapper: {
+  inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#f8f9fa',
