@@ -2,11 +2,11 @@ import { SymbolView } from 'expo-symbols';
 import { StyleSheet, TextInput, View } from 'react-native';
 
 type BuscadorClientesProps = {
-  query: string;
-  onQueryChange: (query: string) => void;
+  consulta: string;
+  onQueryChange: (consulta: string) => void;
 };
 
-export function BuscadorClientes({ query, onQueryChange }: BuscadorClientesProps) {
+export function BuscadorClientes({ consulta, onQueryChange }: BuscadorClientesProps) {
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -21,7 +21,7 @@ export function BuscadorClientes({ query, onQueryChange }: BuscadorClientesProps
         />
       <TextInput
          placeholder="Buscar Cliente..."
-         value={query}
+         value={consulta}
          onChangeText={onQueryChange}
         showSoftInputOnFocus={true}
         autoFocus={false}

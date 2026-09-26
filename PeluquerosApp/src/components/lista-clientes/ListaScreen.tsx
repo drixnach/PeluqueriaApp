@@ -6,18 +6,18 @@ import { ClienteCard } from "./ClienteCard";
 
 
 export function ListaScreen() {
-  const [query, setQuery] = useState("");
-  const normalizedQuery = query.trim().toLowerCase();
+  const [consulta, setConsulta] = useState("");
+  const consultaNormalizada = consulta.trim().toLowerCase();
   const clientesFiltrados = CLIENTES.filter((cliente) =>
     `${cliente.nombre} ${cliente.apellido}`
       .toLowerCase()
-      .includes(normalizedQuery)
+      .includes(consultaNormalizada)
   );
 
   return (
     <>
       <ListaHeader />
-      <BuscadorClientes query={query} onQueryChange={setQuery} />
+      <BuscadorClientes consulta={consulta} onQueryChange={setConsulta} />
       <ClienteCard clientes={clientesFiltrados} />
     </>
   );

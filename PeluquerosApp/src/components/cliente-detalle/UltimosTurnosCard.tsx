@@ -20,7 +20,7 @@ export function UltimosTurnosCard({ cliente }: UltimosTurnosCardProps) {
             <View style={{ flex: 1 }}>
               <Text style={styles.servicio}>{turno.servicio}</Text>
               <View style={styles.infoRow}>
-                <Text style={styles.fecha}>{formatFecha(turno.fecha)}</Text>
+                <Text style={styles.fecha}>{formatoFecha(turno.fecha)}</Text>
                 <Text style={styles.separador}>·</Text>
                 <Text style={styles.peluquero}>{turno.peluquero}</Text>
               </View>
@@ -34,7 +34,7 @@ export function UltimosTurnosCard({ cliente }: UltimosTurnosCardProps) {
   );
 }
 
-function formatFecha(fecha: string): string {
+function formatoFecha(fecha: string): string {
   const [year, month, day] = fecha.split('-');
   return `${day}/${month}/${year}`;
 }
