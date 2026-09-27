@@ -173,6 +173,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Pelu.Controllers.ClientesController",
+    "Method": "BuscarOCrearCliente",
+    "RelativePath": "api/Clientes/buscar-o-crear",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Pelu.Models.DTOs.ClienteCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Pelu.Models.DTOs.ClienteReadDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Pelu.Controllers.DireccionController",
     "Method": "GetDirecciones",
     "RelativePath": "api/Direccion",
