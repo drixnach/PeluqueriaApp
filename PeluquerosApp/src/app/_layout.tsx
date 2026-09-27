@@ -7,6 +7,7 @@ export default function Layout() {
       initialRouteName="login"
     >
       <Stack.Screen name="login" />
+      <Stack.Screen name="lista-clientes" />
       <Stack.Screen name="inicio" />
     </Stack>
   );

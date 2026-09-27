@@ -45,7 +45,7 @@ export function LoginScreen() {
           setIsLoading(false);
           Alert.alert('Login correcto', `Bienvenido ${email} a la peluquería ${peluqueria}`);
 
-          router.push('/inicio');
+          router.push('/lista-clientes');
         }, 1500);
       };
 
