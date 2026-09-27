@@ -4,12 +4,12 @@ import {
   Platform,
   StyleSheet,
   View,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 import { LoginHeader } from './LoginHeader';
 import { LoginForm } from './LoginForm';
 import { LoginButton } from './LoginButton';
-import { ScrollView } from 'react-native';
 import { router } from 'expo-router';
 
 export function LoginScreen() {
@@ -54,7 +54,10 @@ export function LoginScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+      >
         <View style={styles.formCard}>
           <LoginHeader />
           <LoginForm
@@ -77,11 +80,17 @@ export function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: '#f5f5f5',
     padding: 20,
   },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   formCard: {
+    width: '100%',
+    maxWidth: 400,
     backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 24,
