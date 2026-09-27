@@ -119,7 +119,10 @@ namespace Pelu.Controllers
             {
                 token,
                 rol = usuario.Rol,
-                nombre = usuario.Cliente?.Nombre ?? usuario.Peluquero?.Nombre
+                nombre = usuario.Cliente?.Nombre ?? usuario.Peluquero?.Nombre,
+                clienteId = usuario.ClienteId,
+                peluqueroId = usuario.PeluqueroId
+
             });
 
         }
