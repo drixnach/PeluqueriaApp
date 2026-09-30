@@ -113,7 +113,7 @@ namespace Pelu.Controllers
             if (resultado == PasswordVerificationResult.Failed)
                 return Unauthorized("Correo electrónico o contraseña incorrectos.");
 
-            var token = _tokenService.GenerarToken(usuario);
+            var token = _tokenService.GenerarToken(usuario);    
 
             return Ok(new
             {

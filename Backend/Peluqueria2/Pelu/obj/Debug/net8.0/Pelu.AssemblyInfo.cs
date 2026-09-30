@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pelu")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+817238d67a942e5ed1584bc7fe0176372dea601b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3368526d4143984afc2a29ee90d6123f807ddfc8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pelu")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pelu")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

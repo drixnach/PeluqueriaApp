@@ -1,66 +1,82 @@
-export async function obtenerPeluqueros() {
-  const response = await fetch("http://localhost:5143/api/Peluquero");
-  return await response.json();
+import {apiFetch} from './ApiFetch'
+
+const URL="http://localhost:5143/api/Peluquero"
+
+export async function obtenerPeluqueros(){
+  const response=await fetch(URL)
+
+  if (!response.ok){
+    throw error("Error al obtener peluqueros")
+  }
+
+  return await response.json()
 }
+
+export async function obtenerPeluquerosAdmin(){
+  const response=await apiFetch(`${URL}/admin`)
+
+  if(!response.ok){
+    throw error("Error al obtener peluqueros (admin)")
+  }
+
+  return await response.json()
+}
+
 export async function crearPeluquero(nuevoPeluquero) {
+  const response=await apiFetch(URL,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+body:JSON.stringify(nuevoPeluquero)
+  })
 
-  const response = await fetch("http://localhost:5143/api/Peluquero", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(nuevoPeluquero)
-  });
-
-  const texto = await response.text();
-
-  console.log(texto);
-
-  return texto;
+  if(!response.ok){
+    const error= await response.text()
+    throw new Error(error)
+  }
+  return await response.json()
 }
 
 export async function editarPeluquero(id, datosActualizados) {
-  const body = {
-    peluqueroId: id,
-    nombre: datosActualizados.nombre,
-    apellido: datosActualizados.apellido,
-    telefono: datosActualizados.telefono,
-    cuil: datosActualizados.cuil,
-    fechaContratacion: datosActualizados.fechaContratacion,
-  };
-
-  console.log("Body que se manda al PUT:", JSON.stringify(body, null, 2));
-
-  const response = await fetch(`http://localhost:5143/api/Peluquero/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(error);
+  const url=`${URL}/${id}`
+  
+  const res= await apiFetch(url,{
+    method:'PUT',
+    headers:{"Content-type":"application/jsopn"},
+    body: JSON.stringify(datosActualizados)
+  })
+  
+  if(!res.ok){
+    const text=await res.text()
+    throw new Error(`Error ${res.status}: ${text}`)
   }
 
-  return;
+  if (res.status===204) return null
+
+  const contentType=res.headers.get('content-type') || ''
+
+  if (contentType.includes('application/json')){
+    return await res.json()
+  } else {return null}
 }
 
 export async function eliminarPeluquero(id) {
-  await fetch(`http://localhost:5143/api/Peluquero/${id}`, {
-    method: "DELETE"
-  });
+  const response=await apiFetch(`${URL}/${id}`,{
+    method:"DELETE"
+  })
+  if(!response.ok){
+    throw new Error("Error al eliminar peluquero")
+  }
 }
 
 export async function obtenerHorariosPeluquero(peluqueroId) {
-  const response = await fetch(`${URL}/${peluqueroId}/Horarios`);
+  const response= await fetch(`${URL}/${peluqueroId}/Horarios`)
 
-  if (!response.ok) {
-    throw new Error("Error al obtener horarios");
+  if(!response.ok){
+    throw new Error("error al obtener horarios")
   }
 
-  return await response.json();
+  return await response.json()
 }
-
 
 export async function crearHorarioPeluquero(peluqueroId, horario) {
   const normalizarHora = (hora) => hora && hora.length === 5 ? hora + ":00" : hora;
@@ -71,7 +87,7 @@ export async function crearHorarioPeluquero(peluqueroId, horario) {
     horaFin: normalizarHora(horario.horaFin)
   };
 
-  const response = await fetch(`${URL}/${peluqueroId}/Horarios`, {
+  const response = await apiFetch(`${URL}/${peluqueroId}/Horarios`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -87,9 +103,8 @@ export async function crearHorarioPeluquero(peluqueroId, horario) {
   return await response.json();
 }
 
-
 export async function eliminarHorarioPeluquero(peluqueroId, horarioId) {
-  const response = await fetch(
+  const response = await apiFetch(
     `${URL}/${peluqueroId}/Horarios/${horarioId}`,
     {
       method: "DELETE"
@@ -101,16 +116,4 @@ export async function eliminarHorarioPeluquero(peluqueroId, horarioId) {
   }
 }
 
-export async function obtenerPeluquerosAdmin() {
-  const response= await fetch(`${URL}/admin`,{
-    headers:{
-      "Autorizaton":`Bearer ${localStorage.getItem("token")}`
-    }
-  });
 
-  if(!response.ok){
-    throw new Error("Error al obtener peluqueros admin")
-  }
-
-  return await response.json()
-}

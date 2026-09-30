@@ -4,21 +4,21 @@ import {
   Platform,
   StyleSheet,
   View,
-  Alert
+  Alert,
+  ScrollView  
 } from 'react-native';
+import {router} from 'expo-router'
 import { LoginHeader } from './LoginHeader';
 import { LoginForm } from './LoginForm';
 import { LoginButton } from './LoginButton';
-import { ScrollView } from 'react-native';
-import { router } from 'expo-router';
+import { useLogin } from '@/api/useLogin';
+import Login from '@/app/login';
 
 export function LoginScreen() {
 
     const [email, setEmail]=useState('');
-    const [numPelu, setNumPelu]=useState('');
     const [password, setPassword]=useState('')
-    const [peluqueria, setPeluqueria]=useState('');
-    const [isLoading, setIsLoading]=useState(false);
+    const { mutate: login, isPending } = useLogin();
 
     const validarLogin=()=>{
         if(!email||!/\S+@\S+\.\S+/.test(email)){
@@ -38,16 +38,15 @@ export function LoginScreen() {
     const handleLogin=()=>{
         if(!validarLogin()) return;
 
-        setIsLoading(true)
-
-    // Simulación de login
-        setTimeout(() => {
-          setIsLoading(false);
-          Alert.alert('Login correcto', `Bienvenido ${email} a la peluquería ${peluqueria}`);
-
-          router.push('/lista-clientes');
-        }, 1500);
-      };
+    login(
+      {email, password},
+      {
+        onSuccess:()=>router.replace('/lista-clientes'),
+        onError:(error)=>Alert.alert('Error',error.message),
+      }
+    )
+  }
+    
 
     return (
     <KeyboardAvoidingView
@@ -60,14 +59,10 @@ export function LoginScreen() {
           <LoginForm
             email={email}
             setEmail={setEmail}
-            numPelu={numPelu}
-            setNumPelu={setNumPelu}
             password={password}
             setPassword={setPassword}
-            peluqueria={peluqueria}
-            setPeluqueria={setPeluqueria}
           />
-          <LoginButton isLoading={isLoading} onPress={handleLogin} />
+          <LoginButton isLoading={isPending} onPress={handleLogin} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
