@@ -7,7 +7,7 @@ export default function App() {
       
       <Image
          source={require('../../assets/images/aplicacion-construccion.png')}
-        style={styles.image}
+        style={styles.imagen}
       />
       
       
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',    
     backgroundColor: '#f5f5f5', 
   },
-  image: {
+  imagen: {
     width: 230,
     height: 230,
     marginBottom: 20,         

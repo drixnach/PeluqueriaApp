@@ -21,8 +21,6 @@ El proyecto busca resolver la gestión desordenada de turnos, clientes y comisio
 |---|---------|-------------|--------|
 | 1 | **Login** | Inicio de sesión de usuarios, implementado con datos estáticos de prueba y sin conexión a una API por el momento. | ✅ Hecho |
 | 2 | **Agenda / Calendario de turnos** | Vista de calendario, similar a Microsoft Teams, para visualizar los turnos y acceder a su detalle al seleccionarlos. | 🔜 Planeado |
-| 3 | **Historial de clientes** | Información básica del cliente, servicios realizados anteriormente e historial de visitas. | 🔜 Planeado |
+| 3 | **Historial de clientes** | Información básica del cliente, servicios realizados anteriormente e historial de visitas. | ✅ Hecho |
 | 4 | **Comisiones y estadísticas personales** | Servicios realizados, ventas generadas, comisión acumulada y estadísticas por día o mes. | 🔜 Planeado |
-
-> Este listado se actualizará a medida que el proyecto avance durante el semestre.
 
