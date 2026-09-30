@@ -19,7 +19,7 @@ El proyecto busca resolver la gestión desordenada de turnos, clientes y comisio
 
 | # | Feature | Descripción | Estado |
 |---|---------|-------------|--------|
-| 1 | **Login** | Inicio de sesión de usuarios/Login, funcionando conectado a la api local. (email:primeradmin@admin.com | password:PrimerAdmin1)| ✅ Hecho |
+| 1 | **Login** | Inicio de sesión de usuarios/Login, funcionando conectado a la api local. (email:primeradmin@admin.com  password:PrimerAdmin1)| ✅ Hecho |
 | 2 | **Agenda / Calendario de turnos** | Vista de calendario, similar a Microsoft Teams, para visualizar los turnos y acceder a su detalle al seleccionarlos. | 🔜 Planeado |
 | 3 | **Historial de clientes** | Información básica del cliente, servicios realizados anteriormente e historial de visitas. | ✅ Hecho |
 | 4 | **Comisiones y estadísticas personales** | Servicios realizados, ventas generadas, comisión acumulada y estadísticas por día o mes. | 🔜 Planeado |
