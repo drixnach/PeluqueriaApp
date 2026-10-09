@@ -41,7 +41,7 @@ export function LoginScreen() {
     login(
       {email, password},
       {
-        onSuccess:()=>router.replace('/lista-clientes'),
+        onSuccess:()=>router.replace('/estadisticas'),
         onError:(error)=>Alert.alert('Error',error.message),
       }
     )
