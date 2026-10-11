@@ -6,7 +6,7 @@ export default function Header() {
     return (
         <SafeAreaView edges={["top"]} style={styles.safeArea}>
             <View style={styles.container}>
-                <Text style={styles.titulo}>Peluqueria</Text>
+                <Text style={styles.titulo}>Peluqueria Cervantes</Text>
                 <Image
                     source={require('../../../assets/images/logo-pelu.png')}
                     style={styles.logo}
@@ -18,7 +18,9 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     safeArea: {
-        backgroundColor: "#f0f0f0",
+        backgroundColor: "#fff",
+        borderBottomWidth: 2,
+        borderBottomColor: "#e6e8eb",
     },
     container: {
         minHeight: 52,
@@ -26,17 +28,18 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         flexDirection: "row",
         paddingHorizontal: 10,
-        backgroundColor: "#f0f0f0",
+        backgroundColor: "#fff",
     },
     titulo: {
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: "bold",
         color: "#202124",
+        letterSpacing: -0.2,
     },
     logo: {
-        width: 86,
-        height: 86,
-        marginRight: 2,
+        width: 64,
+        height: 64,
+        marginRight: 4,
         resizeMode: "contain",
     }
 });

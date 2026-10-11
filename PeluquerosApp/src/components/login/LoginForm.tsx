@@ -14,7 +14,7 @@ export function LoginForm({email, setEmail,password, setPassword}:Props){
   return(
     <View>
       <TextField 
-        label= "email"
+        label= "Correo"
         placeholder='asd@asd.com'
         value={email}
         onChangeText={setEmail}

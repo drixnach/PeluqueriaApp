@@ -28,7 +28,7 @@ export function DetalleScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
   },
   scrollContent: {
     paddingBottom: 24,
