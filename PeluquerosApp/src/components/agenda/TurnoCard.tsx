@@ -1,4 +1,5 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
 import { CLIENTES } from '@/constants/clientes';
 import type { Turno } from '@/constants/turnos';
 
@@ -26,7 +27,12 @@ export function TurnoCard({ turnos }: TurnoCardProps) {
           : 'Cliente';
 
         return (
-          <View style={styles.card}>
+          <Pressable
+            style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+            onPress={() =>
+              router.push({ pathname: '/turno-detalle', params: { id: item.id } })
+            }
+          >
             <Text style={styles.hora}>{item.hora}</Text>
             <View style={styles.filaPrincipal}>
               <Text style={styles.cliente} numberOfLines={1}>
@@ -37,7 +43,7 @@ export function TurnoCard({ turnos }: TurnoCardProps) {
               </Text>
             </View>
             <Text style={styles.servicio}>{item.servicio}</Text>
-          </View>
+          </Pressable>
         );
       }}
     />
@@ -64,6 +70,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 6,
     elevation: 1,
+  },
+  cardPressed: {
+    opacity: 0.6,
   },
   hora: {
     fontSize: 13,
