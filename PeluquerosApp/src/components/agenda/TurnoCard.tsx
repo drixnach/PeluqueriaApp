@@ -1,0 +1,104 @@
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { CLIENTES } from '@/constants/clientes';
+import type { Turno } from '@/constants/turnos';
+
+type TurnoCardProps = {
+  turnos: Turno[];
+};
+
+export function TurnoCard({ turnos }: TurnoCardProps) {
+  return (
+    <FlatList
+      data={turnos}
+      keyExtractor={(item) => item.id}
+      style={styles.lista}
+      contentContainerStyle={styles.contenido}
+      showsVerticalScrollIndicator={false}
+      ListEmptyComponent={
+        <View style={styles.vacio}>
+          <Text style={styles.textoVacio}>No hay turnos para este día</Text>
+        </View>
+      }
+      renderItem={({ item }) => {
+        const cliente = CLIENTES.find((c) => c.id === item.clienteId);
+        const nombreCliente = cliente
+          ? `${cliente.nombre} ${cliente.apellido}`
+          : 'Cliente';
+
+        return (
+          <View style={styles.card}>
+            <Text style={styles.hora}>{item.hora}</Text>
+            <View style={styles.filaPrincipal}>
+              <Text style={styles.cliente} numberOfLines={1}>
+                {nombreCliente}
+              </Text>
+              <Text style={styles.precio}>
+                ${item.monto.toLocaleString('es-AR')}
+              </Text>
+            </View>
+            <Text style={styles.servicio}>{item.servicio}</Text>
+          </View>
+        );
+      }}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  lista: {
+    flex: 1,
+  },
+  contenido: {
+    paddingHorizontal: 16,
+    paddingBottom: 24,
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    borderColor: '#e6e8eb',
+    borderWidth: 1,
+    borderRadius: 14,
+    padding: 14,
+    marginBottom: 12,
+    shadowColor: '#1f2937',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    elevation: 1,
+  },
+  hora: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#5f6368',
+    marginBottom: 6,
+  },
+  filaPrincipal: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  cliente: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#202124',
+  },
+  precio: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#16a34a',
+  },
+  servicio: {
+    marginTop: 4,
+    fontSize: 13,
+    color: '#5f6368',
+  },
+  vacio: {
+    paddingVertical: 32,
+    alignItems: 'center',
+  },
+  textoVacio: {
+    fontSize: 14,
+    color: '#5f6368',
+  },
+});

@@ -1,19 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Header from '@/components/header/header';
+import { AgendaScreen } from '../../components/agenda/AgendaScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      
-      <Image
-         source={require('../../../assets/images/aplicacion-construccion.png')}
-        style={styles.imagen}
-      />
-      
-      
-      <Text style={styles.text}>
-        Agenda en construccion...
-      </Text>
+      <Header />
+      <AgendaScreen />
     </View>
   );
 }
@@ -21,19 +14,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center', 
-    alignItems: 'center',    
-    backgroundColor: '#f5f5f5', 
-  },
-  imagen: {
-    width: 230,
-    height: 230,
-    marginBottom: 20,         
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#6200ee',         
-    textAlign: 'center',      
+    backgroundColor: '#fff',
   },
 });

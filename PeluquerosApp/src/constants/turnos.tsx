@@ -1,3 +1,7 @@
+import { claveDia } from '@/utils/fechas';
+
+const FECHA_HOY = claveDia(new Date());
+
 export type Turno = {
   id: string;
   clienteId: string;
@@ -143,5 +147,41 @@ export const TURNOS: Turno[] = [
     hora: "11:00",
     peluquero: "Carlos",
     monto: 12000,
+  },
+  {
+    id: "16",
+    clienteId: "2",
+    servicio: "Corte + Color",
+    fecha: FECHA_HOY,
+    hora: "09:00",
+    peluquero: "Ana",
+    monto: 22000,
+  },
+  {
+    id: "17",
+    clienteId: "5",
+    servicio: "Peinado Evento",
+    fecha: FECHA_HOY,
+    hora: "11:30",
+    peluquero: "Ana",
+    monto: 18000,
+  },
+  {
+    id: "18",
+    clienteId: "1",
+    servicio: "Corte + Barba",
+    fecha: FECHA_HOY,
+    hora: "14:00",
+    peluquero: "Carlos",
+    monto: 15000,
+  },
+  {
+    id: "19",
+    clienteId: "3",
+    servicio: "Barba",
+    fecha: FECHA_HOY,
+    hora: "17:30",
+    peluquero: "Luis",
+    monto: 7000,
   },
 ];
