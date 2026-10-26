@@ -3,7 +3,7 @@ import { SymbolView } from 'expo-symbols';
 import { StyleSheet } from 'react-native';
 
 export const unstable_settings = {
-  initialRouteName: 'estadisticas',
+  initialRouteName: 'inicio',
 };
 
 export default function TabsLayout() {
@@ -52,6 +52,19 @@ export default function TabsLayout() {
           tabBarIcon: ({ color, size }) => (
             <SymbolView
               name={{ ios: 'calendar', android: 'calendar_month', web: 'calendar_month' }}
+              tintColor={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="galeria"
+        options={{
+          title: 'Galería',
+          tabBarIcon: ({ color, size }) => (
+            <SymbolView
+              name={{ ios: 'photo.on.rectangle.angled', android: 'photo_library', web: 'photo_library' }}
               tintColor={color}
               size={size}
             />
