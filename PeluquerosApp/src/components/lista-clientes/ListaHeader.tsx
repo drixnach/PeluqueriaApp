@@ -1,14 +1,19 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { CLIENTES } from '@/constants/clientes';
 
-export function ListaHeader(){
-    return(
+type ListaHeaderProps = {
+    total: number;
+};
+
+export function ListaHeader({ total }: ListaHeaderProps) {
+    return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Clientes</Text>
-            <Text style={styles.subtitulo}>{CLIENTES.length} registrados</Text>
+            <Text style={styles.subtitulo}>{total} registrados</Text>
         </View>
-    )
+    );
 }
+
+// los styles quedan igual
 
 const styles = StyleSheet.create({
     container: {

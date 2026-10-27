@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TURNOS } from '@/constants/turnos';
-import { claveDia } from '@/utils/fechas';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useMisTurnos, aTurnoVista } from '@/api/useMisTurnos';
+import { claveDia, inicioDeSemana, sumarDias } from '@/utils/fechas';
 import { AgendaHeader } from './AgendaHeader';
 import { DiasSlider } from './DiasSlider';
 import { TurnoCard } from './TurnoCard';
+import { useRefetchOnFocus } from '@/api/useRefetchOnFocus';
+
 
 export function AgendaScreen() {
   const [fechaSeleccionada, setFechaSeleccionada] = useState(() => {
@@ -12,11 +14,13 @@ export function AgendaScreen() {
     return new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
   });
 
-  const turnosDelDia = TURNOS.filter(
-    (turno) => turno.fecha === claveDia(fechaSeleccionada)
-  ).sort((a, b) => a.hora.localeCompare(b.hora));
-
-  return (
+  const lunes=inicioDeSemana(fechaSeleccionada)
+  const {data, isLoading, isError, refetch }= useMisTurnos(claveDia(lunes), claveDia(sumarDias(lunes,7)))
+  useRefetchOnFocus(refetch)
+  const diaIso=claveDia(fechaSeleccionada)
+  const turnosDelDia=(data??[]).map(aTurnoVista).filter((turno)=>turno.fecha===diaIso).sort((a,b)=>a.hora.localeCompare(b.hora))
+  
+  return(
     <View style={styles.container}>
       <View style={styles.encabezado}>
         <AgendaHeader fecha={fechaSeleccionada} />
@@ -25,9 +29,18 @@ export function AgendaScreen() {
         fechaSeleccionada={fechaSeleccionada}
         onSeleccionarDia={setFechaSeleccionada}
       />
-      <TurnoCard turnos={turnosDelDia} />
+
+      {isLoading ? (
+        <ActivityIndicator style={styles.estado} />
+      ) : isError ? (
+        <Pressable onPress={() => refetch()} style={styles.estado}>
+          <Text>No se pudo cargar la agenda. Tocá para reintentar.</Text>
+        </Pressable>
+      ) : (
+        <TurnoCard turnos={turnosDelDia} />
+      )}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -39,5 +52,9 @@ const styles = StyleSheet.create({
   encabezado: {
     paddingHorizontal: 16,
     marginBottom: 16,
+  },
+  estado: {
+    paddingVertical: 32,
+    alignItems: 'center',
   },
 });

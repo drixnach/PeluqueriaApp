@@ -22,6 +22,7 @@ export async function apiFetch(url, options={}) {
 
     if (response.status===401){
         localStorage.removeItem(STORAGE_KEY)
+        window.dispatchEvent(new Event('auth:expired'))
     }
 
     return response

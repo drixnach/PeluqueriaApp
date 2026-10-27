@@ -40,7 +40,7 @@ namespace Pelu.Controllers
                 PeluqueroId = p.PeluqueroId,
                 Nombre = p.Nombre,
                 Apellido = p.Apellido,
-                Peluqueria = p.Peluqueria?.Nombre,
+                NombrePeluqueria = p.Peluqueria?.Nombre,
                 Servicios = p.PeluqueroxServicios.Select(px => px.Servicio.Nombre).ToList()
             }).ToList();
 
@@ -247,7 +247,7 @@ namespace Pelu.Controllers
                 Servicios= servicios
             };
 
-            return CreatedAtAction("GetPeluquero", new { id = peluquero.PeluqueroId }, resultado);
+            return Created($"/api/Peluquero/{peluquero.PeluqueroId}", resultado);   
         }
 
         // DELETE: api/Peluquero/5

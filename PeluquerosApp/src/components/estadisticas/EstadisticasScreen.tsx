@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { TURNOS } from '@/constants/turnos';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useMisTurnos, aTurnoVista } from '@/api/useMisTurnos';
+import { useRefetchOnFocus } from '@/api/useRefetchOnFocus';
+import { claveDia } from '@/utils/fechas';
 import { EstadisticasHeader } from './EstadisticasHeader';
 import { MesSlider } from './MesSlider';
 import { TotalServicios } from './TotalServicios';
 import { TotalVentas } from './TotalVentas';
 import { UltimoServicios } from './UltimoServicios';
+
+const SOLO_REALIZADOS = false; //es para probar lo cambio a true cuando agregue los estados de realizado o pendiente o cancelado
 
 export function EstadisticasScreen() {
   const [mesSeleccionado, setMesSeleccionado] = useState(() => {
@@ -19,18 +23,43 @@ export function EstadisticasScreen() {
     );
   };
 
-  const periodo = `${mesSeleccionado.getFullYear()}-${String(mesSeleccionado.getMonth() + 1).padStart(2, '0')}`;
-  const turnosDelMes = TURNOS.filter((turno) => turno.fecha.slice(0, 7) === periodo);
+  const desde = claveDia(mesSeleccionado);
+  const hasta = claveDia(
+    new Date(mesSeleccionado.getFullYear(), mesSeleccionado.getMonth() + 1, 1)
+  );
+
+  const { data, isLoading, isError, refetch } = useMisTurnos(desde, hasta);
+  useRefetchOnFocus(refetch);
+
+  const ahora = new Date();
+  const ahoraTexto = `${claveDia(ahora)} ${String(ahora.getHours()).padStart(2, '0')}:${String(
+    ahora.getMinutes()
+  ).padStart(2, '0')}`;
+
+  const turnosDelMes = (data ?? [])
+    .map(aTurnoVista)
+    .filter((turno) => !SOLO_REALIZADOS || `${turno.fecha} ${turno.hora}` <= ahoraTexto);
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contenido}>
       <EstadisticasHeader />
       <MesSlider mes={mesSeleccionado} onCambiarMes={cambiarMes} />
-      <View style={styles.tarjetas}>
-        <TotalVentas turnos={turnosDelMes} />
-        <TotalServicios turnos={turnosDelMes} />
-      </View>
-      <UltimoServicios turnos={turnosDelMes} />
+
+      {isLoading ? (
+        <ActivityIndicator style={styles.estado} />
+      ) : isError ? (
+        <Pressable onPress={() => refetch()} style={styles.estado}>
+          <Text>No se pudieron cargar las estadísticas. Tocá para reintentar.</Text>
+        </Pressable>
+      ) : (
+        <>
+          <View style={styles.tarjetas}>
+            <TotalVentas turnos={turnosDelMes} />
+            <TotalServicios turnos={turnosDelMes} />
+          </View>
+          <UltimoServicios turnos={turnosDelMes} />
+        </>
+      )}
     </ScrollView>
   );
 }
@@ -50,4 +79,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
+  estado: {
+  paddingVertical: 32,
+  alignItems: 'center',
+},
 });

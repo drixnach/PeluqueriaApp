@@ -1,9 +1,9 @@
 import { SymbolView } from 'expo-symbols';
 import { StyleSheet, Text, View } from 'react-native';
-import type { Turno } from '@/constants/turnos';
+import type { TurnoVista } from '@/api/useMisTurnos';
 
 type TotalVentasProps = {
-  turnos: Turno[];
+  turnos: TurnoVista[];
 };
 
 export function TotalVentas({ turnos }: TotalVentasProps) {

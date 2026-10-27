@@ -1,7 +1,6 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { CLIENTES } from '@/constants/clientes';
-import { TURNOS } from '@/constants/turnos';
+import { useMiTurno, aTurnoVista } from '@/api/useMisTurnos';
 import { ClienteTurno } from '@/components/turno-detalle/ClienteTurno';
 import { DetalleTurno } from '@/components/turno-detalle/DetalleTurno';
 import { VolverAgendaButton } from '@/components/turno-detalle/VolverAgendaButton';
@@ -9,9 +8,29 @@ import { VolverAgendaButton } from '@/components/turno-detalle/VolverAgendaButto
 export function TurnoDetalleScreen() {
   const { id } = useLocalSearchParams();
   const turnoId = Array.isArray(id) ? id[0] : id;
-  const turno = TURNOS.find((t) => t.id === turnoId);
 
-  if (!turno) {
+  const { data, isLoading, isError, error, refetch } = useMiTurno(turnoId);
+
+  if (isLoading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View style={styles.center}>
+        <Text style={styles.errorText}>{error?.message ?? 'Error al cargar el turno'}</Text>
+        <Pressable onPress={() => refetch()} hitSlop={8}>
+          <Text style={styles.reintentar}>Tocá para reintentar</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
+  if (!data) {
     return (
       <View style={styles.center}>
         <Text style={styles.errorText}>Turno no encontrado</Text>
@@ -19,19 +38,16 @@ export function TurnoDetalleScreen() {
     );
   }
 
-  const cliente = CLIENTES.find((c) => c.id === turno.clienteId);
-  const nombreCliente = cliente
-    ? `${cliente.nombre} ${cliente.apellido}`
-    : 'Cliente';
+  const turno = aTurnoVista(data);
 
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.titulo}>Detalle del turno</Text>
-        {cliente ? (
-          <ClienteTurno cliente={cliente} />
+        {turno.clienteId ? (
+          <ClienteTurno clienteId={turno.clienteId} nombre={turno.nombreCliente} />
         ) : (
-          <Text style={styles.cliente}>{nombreCliente}</Text>
+          <Text style={styles.cliente}>{turno.nombreCliente}</Text>
         )}
         <DetalleTurno turno={turno} />
         <View style={styles.footer}>
@@ -43,16 +59,8 @@ export function TurnoDetalleScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  titulo: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#202124',
-    marginBottom: 16,
-  },
+  container: { flex: 1, backgroundColor: '#fff' },
+  titulo: { fontSize: 18, fontWeight: '700', color: '#202124', marginBottom: 16 },
   card: {
     flex: 1,
     backgroundColor: '#ffffff',
@@ -60,22 +68,15 @@ const styles = StyleSheet.create({
     paddingTop: 22,
     paddingBottom: 24,
   },
-  footer: {
-    marginTop: 16,
-  },
-  cliente: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#202124',
-  },
+  footer: { marginTop: 16 },
+  cliente: { fontSize: 16, fontWeight: '600', color: '#202124' },
   center: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 12,
     backgroundColor: '#fff',
   },
-  errorText: {
-    fontSize: 16,
-    color: '#5f6368',
-  },
+  errorText: { fontSize: 16, color: '#5f6368' },
+  reintentar: { fontSize: 14, fontWeight: '600', color: '#3c4043' },
 });

@@ -20,9 +20,9 @@ export function BuscadorClientes({ consulta, onQueryChange }: BuscadorClientesPr
           size={19}
         />
       <TextInput
-         placeholder="Buscar Cliente..."
-         value={consulta}
-         onChangeText={onQueryChange}
+          placeholder="Buscar Cliente..."
+          value={consulta}
+          onChangeText={onQueryChange}
         showSoftInputOnFocus={true}
         autoFocus={false}
         placeholderTextColor="#9aa0a6"

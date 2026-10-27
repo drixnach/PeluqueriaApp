@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 
 import { obtenerPeluqueros, obtenerHorariosPeluquero } from "../../services/PeluqueroServices";
-import { obtenerClientes, crearCliente } from "../../services/ClienteServices";
+import { buscarOCrearCliente } from "../../services/ClienteServices";
 import { obtenerServicios } from "../../services/ServiciosServices";
 import { obtenerServiciosDePeluquero } from "../../services/PeluqueroxServicioServices";
 import { obtenerPeluquerias } from "../../services/PeluqueriaServices";
@@ -43,29 +43,32 @@ export default function VistaCliente({ turnosGlobales = [], clientesGlobales = [
 
   useEffect(() => {
     async function filtrarPeluqueros() {
-      if (!form.servicio || !form.sucursal) {
-        setPeluquerosFiltrados([]);
-        return;
-      }
+    if (!form.servicio || !form.sucursal) {
+      setPeluquerosFiltrados([]);
+      return;
+    }
 
+    try {
       const resultado = [];
       for (const peluquero of peluquerosDisponibles) {
         const trabajaEnSucursal = peluquero.nombrePeluqueria === form.sucursal;
+      
+        if (!trabajaEnSucursal) continue;
 
-        if (trabajaEnSucursal) {
-          const serviciosDePeluquero = await obtenerServiciosDePeluquero(peluquero.peluqueroId);
-          const haceServicio = serviciosDePeluquero.some(
-            s => s.nombreServicio === form.servicio
-          );
+        const serviciosDePeluquero = await obtenerServiciosDePeluquero(peluquero.peluqueroId);
+        
 
-          if (haceServicio) {
-            resultado.push(peluquero);
-          }
+        if (serviciosDePeluquero.some(s => s.nombreServicio === form.servicio)) {
+          resultado.push(peluquero);
         }
       }
       setPeluquerosFiltrados(resultado);
+    } catch (error) {
+      console.error('[filtro] Error al filtrar peluqueros:', error);
+      setPeluquerosFiltrados([]);
     }
-    filtrarPeluqueros();
+  }
+  filtrarPeluqueros();
   }, [form.servicio, form.sucursal, peluquerosDisponibles]);
 
   useEffect(() => {
@@ -204,20 +207,7 @@ export default function VistaCliente({ turnosGlobales = [], clientesGlobales = [
         sexo: form.sexo
       };
 
-      let clienteCreado;
-      const clienteExiste = clientesGlobales.find(
-        c =>c.nombre.toLowerCase() === form.nombre.toLowerCase() &&
-            c.apellido.toLowerCase() === form.apellido.toLowerCase()
-      );
-
-      if (!clienteExiste) {
-        clienteCreado = await crearCliente(nuevoCliente);
-        const clientesActualizados = await obtenerClientes();
-        setClientesGlobales(clientesActualizados);
-      } else {
-        clienteCreado = clienteExiste;
-      }
-
+      const clienteCreado= await buscarOCrearCliente(nuevoCliente);
       const peluqueriaSeleccionada = sucursales.find(s => s.nombre === form.sucursal);
       const peluqueroSeleccionado = peluquerosFiltrados.find(p => p.nombre === form.peluquero);
       const servicioSeleccionado = servicios.find(s => s.nombre === form.servicio);

@@ -1,7 +1,8 @@
 const API_URL = "http://localhost:5143/api/Clientes";
+import { apiFetch } from "./ApiFetch";
 
 export async function obtenerClientes() {
-  const response = await fetch(API_URL);
+  const response = await apiFetch(API_URL);
 
   if (!response.ok) {
     throw new Error("Error al obtener clientes");
@@ -11,7 +12,7 @@ export async function obtenerClientes() {
 }
 
 export async function obtenerClientePorId(id) {
-  const response = await fetch(`${API_URL}/${id}`);
+  const response = await apiFetch(`${API_URL}/${id}`);
 
   if (!response.ok) {
     throw new Error("Cliente no encontrado");
@@ -31,7 +32,7 @@ export async function crearCliente(nuevoCliente) {
 
   console.log("Body que se manda al POST:", JSON.stringify(body, null, 2));
 
-  const response = await fetch(API_URL, {
+  const response = await apiFetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -58,7 +59,7 @@ export async function editarCliente(id, datosActualizados) {
 
   console.log("Body que se manda al PUT:", JSON.stringify(body, null, 2));
 
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await apiFetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -73,7 +74,7 @@ export async function editarCliente(id, datosActualizados) {
 }
 
 export async function eliminarCliente(id) {
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await apiFetch(`${API_URL}/${id}`, {
     method: "DELETE"
   });
 

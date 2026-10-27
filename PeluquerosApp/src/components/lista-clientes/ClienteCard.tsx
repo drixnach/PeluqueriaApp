@@ -1,10 +1,10 @@
 import { SymbolView } from "expo-symbols";
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import type { Cliente } from "@/constants/clientes";
+import type { ClienteVista } from "@/api/useMisClientes";
 import { DetalleButton } from "./DetalleButton";
 
 type ClienteCardProps = {
-  clientes: Cliente[];
+  clientes: ClienteVista[];
 };
 
 export function ClienteCard({ clientes }: ClienteCardProps) {

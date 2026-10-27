@@ -7,6 +7,7 @@ import {
   eliminarHorarioPeluquero
 } from "../../services/PeluqueroServices";
 import { getNombreDia } from '../../utils/formatters';
+import {registrarUsuarioPeluquero} from '../../services/AuthServices'
 
 const estadoInicialPeluquero = {
   nombre: '', apellido: '', telefono: '', servicioIds: [], cuil: '', fechaContratacion: '', peluqueriaId: null,
@@ -14,8 +15,11 @@ const estadoInicialPeluquero = {
   direccion: { calle: '', altura: '', ciudad: '', provincia: '', codigoPostal: '', pais: 'Argentina' }
 };
 
+
+
 export default function FormularioPeluquero({ peluqueroEnEdicion, sucursales, servicios, onCancelar, onGuardado }) {
   const idEnEdicion = peluqueroEnEdicion?.peluqueroId ?? null;
+  const [acceso, setAcceso]=useState({email:'', password:''})
 
   const [nuevoPel, setNuevoPel] = useState(() => {
     if (!peluqueroEnEdicion) return estadoInicialPeluquero;
@@ -44,6 +48,13 @@ export default function FormularioPeluquero({ peluqueroEnEdicion, sucursales, se
   const manejarSubmitPeluquero = async (e) => {
     e.preventDefault();
     try {
+      if(idEnEdicion===null && (acceso.email || acceso.password)){
+        if(!acceso.email || acceso.password.length<8){
+          alert ("Para crear el acceso completa el correo y una contraseña de al menos 8 caracteres.")
+          return
+        }
+      }
+
       let body = { ...nuevoPel };
 
       if (body.horarios) {
@@ -83,8 +94,8 @@ export default function FormularioPeluquero({ peluqueroEnEdicion, sucursales, se
         for (const ha of horariosActuales) {
           const sigue = (body.horarios || []).some(
             h => h.diaSemana === ha.diaSemana &&
-                 h.horaInicio === ha.horaInicio &&
-                 h.horaFin === ha.horaFin
+                h.horaInicio === ha.horaInicio &&
+                h.horaFin === ha.horaFin
           );
           if (!sigue) {
             await eliminarHorarioPeluquero(idEnEdicion, ha.horarioPeluqueroId);
@@ -92,13 +103,28 @@ export default function FormularioPeluquero({ peluqueroEnEdicion, sucursales, se
         }
       } else {
         const peluqueroCreado = await crearPeluquero(body);
-        alert("¡Profesional agregado con éxito!");
 
         if (body.horarios && body.horarios.length > 0) {
           for (const h of body.horarios) {
             await crearHorarioPeluquero(peluqueroCreado.peluqueroId, h);
           }
         }
+
+        if (acceso.email && acceso.password){
+          try{
+            await registrarUsuarioPeluquero({
+              email: acceso.email,
+              password: acceso.password,
+              peluqueroId: peluqueroCreado.peluqueroId
+            })
+            alert("Profesional creado con exito")
+          }
+          catch{
+            alert(`El profesional se creó, pero no se pudo crear su acceso: ${err.message}\nPodés reintentarlo con "Crear acceso" en la tabla.`)
+          }
+        } else{
+            alert("¡Profesional agregado con éxito! Todavía no tiene acceso a la app.")
+          }
       }
 
       await onGuardado();
@@ -342,6 +368,27 @@ export default function FormularioPeluquero({ peluqueroEnEdicion, sucursales, se
             </div>
           )}
         </div>
+
+        {!idEnEdicion && (
+          <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <h3 className="text-xs font-bold text-sky-500 uppercase tracking-widest mb-1">5. Acceso a la app (opcional)</h3>
+            <p className="text-xs text-slate-400 font-medium mb-4">Si lo dejás vacío, el profesional se crea sin poder iniciar sesión. Podés darle acceso después.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label className="text-xs font-bold text-slate-400 uppercase mb-2 block">Correo</label>
+                <input type="email" autoComplete="off"
+                  className="w-full p-3.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-sky-100 outline-none transition-all text-slate-700 font-medium"
+                  value={acceso.email} onChange={e => setAcceso({ ...acceso, email: e.target.value })} />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-slate-400 uppercase mb-2 block">Contraseña inicial</label>
+                <input type="password" autoComplete="new-password"
+                  className="w-full p-3.5 bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-sky-100 outline-none transition-all text-slate-700 font-medium"
+                  value={acceso.password} onChange={e => setAcceso({ ...acceso, password: e.target.value })} />
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="flex gap-4 pt-4 border-t border-slate-100">
           <button

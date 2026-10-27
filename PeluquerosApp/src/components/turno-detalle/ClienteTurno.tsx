@@ -1,13 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
-import type { Cliente } from '@/constants/clientes';
 
 type ClienteTurnoProps = {
-  cliente: Cliente;
+  clienteId: string;
+  nombre: string;
 };
 
-export function ClienteTurno({ cliente }: ClienteTurnoProps) {
+export function ClienteTurno({ clienteId, nombre }: ClienteTurnoProps) {
   return (
     <View style={styles.fila}>
       <View style={styles.avatar}>
@@ -23,13 +23,13 @@ export function ClienteTurno({ cliente }: ClienteTurnoProps) {
       </View>
 
       <Text style={styles.nombre} numberOfLines={1}>
-        {cliente.nombre} {cliente.apellido}
+        {nombre}
       </Text>
 
       <Pressable
         style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
         onPress={() =>
-          router.push({ pathname: '/cliente-detalle', params: { id: cliente.id } })
+          router.push({ pathname: '/cliente-detalle', params: { id: clienteId } })
         }
         hitSlop={8}
       >

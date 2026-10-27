@@ -17,6 +17,22 @@ namespace Pelu.Controllers
     {
         private readonly PeluqueriaDbContext _context;
         private readonly CaptchaService _captchaService;
+        private static TurnosReadDTO MapMiTurno(Turno t) => new TurnosReadDTO
+        {
+            TurnoId = t.TurnoId,
+            ClienteId = t.ClienteId,
+            FechaInicioTurno = t.FechaInicioTurno ?? default(DateTime),
+            FechaFinTurno = t.FechaFinTurno ?? default(DateTime),
+            NombreCliente = t.Cliente?.Nombre,
+            NombrePeluquero = t.Peluquero?.Nombre,
+            NombrePeluqueria = t.Peluqueria?.Nombre,
+            Servicios = t.DetalleTurnos.Select(d => new ServiciosTurnoDTO
+            {
+                ServicioId = d.ServicioId ?? 0,
+                Nombre = d.Servicio?.Nombre,
+                Precio = d.Precio ?? 0
+            }).ToList()
+        };
 
         public TurnoController(PeluqueriaDbContext context, CaptchaService captchaService)
         {
@@ -307,5 +323,58 @@ namespace Pelu.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        //GET api/Turno/mis-turnos?desde2026-10-23&hasta=2026-10-30
+
+        [Authorize(Roles = "Peluquero")]
+        [HttpGet("mis-turnos")]
+
+        public async Task<ActionResult<IEnumerable<TurnosReadDTO>>> GetMisTurnos([FromQuery] DateTime? desde, [FromQuery] DateTime? hasta, int? clienteId)
+        {
+            var claim= User.FindFirst("peluqueroId")?.Value;
+            if (!int.TryParse(claim, out var peluqueroId)) return Forbid();
+
+            var query=_context.Turnos
+                .Where(t => t.PeluqueroId == peluqueroId);
+
+            if (desde.HasValue) query = query.Where(t => t.FechaInicioTurno >= desde.Value);
+            if (hasta.HasValue) query = query.Where(t => t.FechaInicioTurno < hasta.Value);
+            if (clienteId.HasValue) query = query.Where(t => t.ClienteId == clienteId.Value);
+
+            var turnos = await query
+                .Include(t => t.Cliente)
+                .Include(t => t.Peluquero)
+                .Include(t => t.Peluqueria)
+                .Include(t => t.DetalleTurnos)
+                    .ThenInclude(d => d.Servicio)
+                .OrderBy(t => t.FechaInicioTurno)
+                .ToListAsync();
+
+            
+
+            return Ok(turnos.Select(MapMiTurno).ToList());
+        }
+
+        // GET api/Turno/mis-turnos/5
+        [Authorize(Roles = "Peluquero")]
+        [HttpGet("mis-turnos/{id}")]
+        public async Task<ActionResult<TurnosReadDTO>> GetMiTurno(int id)
+        {
+            var claim = User.FindFirst("peluqueroId")?.Value;
+            if (!int.TryParse(claim, out var peluqueroId)) return Forbid();
+
+            var turno = await _context.Turnos
+                .Include(t => t.Cliente)
+                .Include(t => t.Peluquero)
+                .Include(t => t.Peluqueria)
+                .Include(t => t.DetalleTurnos).ThenInclude(d => d.Servicio)
+                .FirstOrDefaultAsync(t => t.TurnoId == id && t.PeluqueroId == peluqueroId);
+
+            if (turno == null) return NotFound();
+
+            return Ok(MapMiTurno(turno));
+        }
+
+
     }
 }

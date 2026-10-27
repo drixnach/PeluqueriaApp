@@ -1,4 +1,8 @@
+import {apiFetch} from './ApiFetch'
+
 const API_URL = "http://localhost:5143/api/Turno";
+
+
 
 export async function obtenerTurnos() {
 
@@ -12,7 +16,6 @@ export async function obtenerTurnos() {
 }
 
 export async function crearTurno(turno) {
-  console.log("Body que se manda al TurnoController:", JSON.stringify(turno, null, 2));
 
   const response = await fetch(API_URL, {
     method: "POST",
@@ -46,7 +49,7 @@ export async function editarTurno(id, turno) {
 
 export async function eliminarTurno(id) {
 
-  const response = await fetch(`${API_URL}/${id}`, {
+  const response = await apiFetch(`${API_URL}/${id}`, {
     method: "DELETE"
   });
 

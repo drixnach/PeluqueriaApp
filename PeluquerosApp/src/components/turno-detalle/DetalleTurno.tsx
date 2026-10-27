@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
-import type { Turno } from '@/constants/turnos';
+import type { TurnoVista } from '@/api/useMisTurnos';
 import { tituloDia } from '@/utils/fechas';
 
+
 type DetalleTurnoProps = {
-  turno: Turno;
+  turno: TurnoVista;
 };
 
 function parseFecha(fecha: string): Date {

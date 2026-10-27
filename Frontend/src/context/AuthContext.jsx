@@ -20,6 +20,12 @@ export function AuthProvider({children}){
     setCargando(false)
     },[])
 
+    useEffect(()=>{
+        const alExpirar=()=>setAuth(null)
+        window.addEventListener('auth:expired', alExpirar)
+        return()=>window.removeEventListener('auth:expired', alExpirar)
+    },[])
+
     const login=async (email, password)=>{
         const data=await loginRequest(email, password)
         setAuth(data)

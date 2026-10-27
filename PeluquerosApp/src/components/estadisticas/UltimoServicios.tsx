@@ -1,18 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { CLIENTES } from '@/constants/clientes';
-import type { Turno } from '@/constants/turnos';
+import type { TurnoVista } from '@/api/useMisTurnos';
 
 type UltimoServiciosProps = {
-  turnos: Turno[];
+  turnos: TurnoVista[];
 };
 
 export function UltimoServicios({ turnos }: UltimoServiciosProps) {
   const ultimosTurnos = [...turnos]
-    .sort((a, b) => {
-      const fechaA = new Date(`${a.fecha}T${a.hora}`).getTime();
-      const fechaB = new Date(`${b.fecha}T${b.hora}`).getTime();
-      return fechaB - fechaA;
-    })
+    .sort((a, b) => `${b.fecha} ${b.hora}`.localeCompare(`${a.fecha} ${a.hora}`))
     .slice(0, 4);
 
   return (
@@ -23,7 +18,6 @@ export function UltimoServicios({ turnos }: UltimoServiciosProps) {
         <Text style={styles.vacio}>Sin servicios este mes</Text>
       ) : (
         ultimosTurnos.map((turno) => {
-          const cliente = CLIENTES.find((c) => c.id === turno.clienteId);
           const [, mes, dia] = turno.fecha.split('-');
 
           return (
@@ -38,7 +32,7 @@ export function UltimoServicios({ turnos }: UltimoServiciosProps) {
 
               <View style={styles.datos}>
                 <Text style={styles.nombre} numberOfLines={1}>
-                  {cliente ? `${cliente.nombre} ${cliente.apellido}` : 'Cliente'}
+                  {turno.nombreCliente}
                 </Text>
                 <Text style={styles.servicio} numberOfLines={1}>
                   {turno.servicio}

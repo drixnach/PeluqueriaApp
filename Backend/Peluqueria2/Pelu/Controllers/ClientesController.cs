@@ -124,15 +124,8 @@ namespace Pelu.Controllers
 
             if (existe != null)
             {
-                return Ok(new ClienteReadDto
-                {
-                    ClienteId = existe.ClienteId,
-                    Nombre = existe.Nombre,
-                    Apellido = existe.Apellido,
-                    Correo = existe.Correo,
-                    Telefono = existe.Telefono,
-                    Sexo = existe.Sexo
-                });
+                return Ok(new { clienteId = existe.ClienteId}
+                );
             }
 
             var cliente = new Cliente
@@ -147,15 +140,8 @@ namespace Pelu.Controllers
             _context.Clientes.Add(cliente);
             await _context.SaveChangesAsync();
 
-            return Ok(new ClienteReadDto
-            {
-                ClienteId = cliente.ClienteId,
-                Nombre = cliente.Nombre,
-                Apellido = cliente.Apellido,
-                Correo = cliente.Correo,
-                Telefono = cliente.Telefono,
-                Sexo = cliente.Sexo
-            });
+            return Ok(new { clienteId = cliente.ClienteId }
+            );
         }
 
         // DELETE: api/Clientes/5
@@ -185,6 +171,59 @@ namespace Pelu.Controllers
 
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        // GET api/Clientes/mis-clientes/5
+        [Authorize(Roles = "Peluquero")]
+        [HttpGet("mis-clientes/{id}")]
+        public async Task<ActionResult<ClienteReadDto>> GetMiCliente(int id)
+        {
+            var claim = User.FindFirst("peluqueroId")?.Value;
+            if (!int.TryParse(claim, out var peluqueroId)) return Forbid();
+
+            var esSuCliente = await _context.Turnos
+                .AnyAsync(t => t.ClienteId == id && t.PeluqueroId == peluqueroId);
+            if (!esSuCliente) return NotFound();
+
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null) return NotFound();
+
+            return Ok(new ClienteReadDto
+            {
+                ClienteId = cliente.ClienteId,
+                Nombre = cliente.Nombre,
+                Apellido = cliente.Apellido,
+                Correo = cliente.Correo,
+                Telefono = cliente.Telefono,
+                Sexo = cliente.Sexo
+            });
+        }
+
+        //GET api/Clientes/mis-clientes
+        [Authorize(Roles = "Peluquero")]
+        [HttpGet("mis-clientes")]
+        public async Task<ActionResult<IEnumerable<ClienteReadDto>>> GetMisClientes()
+        {
+            var claim = User.FindFirst("peluqueroId")?.Value;
+            if (!int.TryParse(claim, out var peluqueroId)) return Forbid();
+
+            var clientes=await _context.Clientes
+                .Where(c=>c.Turnos.Any(t=> t.PeluqueroId == peluqueroId))
+                .OrderBy(c=>c.Apellido).ThenBy(c=> c.Nombre)
+                .ToListAsync();
+
+            return Ok(clientes.Select(c => new ClienteReadDto
+            {
+                ClienteId = c.ClienteId,
+                Nombre = c.Nombre,
+                Apellido = c.Apellido,
+                Correo = c.Correo,
+                Telefono = c.Telefono,
+                Sexo = c.Sexo
+            }).ToList());
+
+
+
         }
 
         private bool ClienteExists(int id)

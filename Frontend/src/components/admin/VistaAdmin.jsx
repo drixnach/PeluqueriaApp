@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { obtenerPeluqueros } from "../../services/PeluqueroServices";
+import { obtenerPeluquerosAdmin } from "../../services/PeluqueroServices";
 import { obtenerServicios } from "../../services/ServiciosServices";
 import { obtenerPeluquerias } from "../../services/PeluqueriaServices";
 import { obtenerClientes } from "../../services/ClienteServices";
@@ -36,7 +36,7 @@ export default function VistaAdmin({ turnosGlobales = [], clientesGlobales = [],
 
   async function cargarPeluqueros() {
     try {
-      const data = await obtenerPeluqueros();
+      const data = await obtenerPeluquerosAdmin();
       setListaPeluqueros(data);
     } catch (error) {
       console.error(error);

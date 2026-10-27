@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { SymbolView } from 'expo-symbols';
-import type { Cliente } from '@/constants/clientes';
 import { CorreoButton } from './CorreoButton';
 import { TelefonoButton } from './TelefonoButton';
+import { ClienteVista } from '@/api/useMisClientes';
 
 type ContactoClienteCardProps = {
-  cliente: Cliente;
+  cliente: ClienteVista;
 };
 
 export function ContactoClienteCard({ cliente }: ContactoClienteCardProps) {

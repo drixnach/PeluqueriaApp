@@ -1,10 +1,9 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
-import { CLIENTES } from '@/constants/clientes';
-import type { Turno } from '@/constants/turnos';
+import type { TurnoVista } from '@/api/useMisTurnos';
 
 type TurnoCardProps = {
-  turnos: Turno[];
+  turnos: TurnoVista[];
 };
 
 export function TurnoCard({ turnos }: TurnoCardProps) {
@@ -20,32 +19,25 @@ export function TurnoCard({ turnos }: TurnoCardProps) {
           <Text style={styles.textoVacio}>No hay turnos para este día</Text>
         </View>
       }
-      renderItem={({ item }) => {
-        const cliente = CLIENTES.find((c) => c.id === item.clienteId);
-        const nombreCliente = cliente
-          ? `${cliente.nombre} ${cliente.apellido}`
-          : 'Cliente';
-
-        return (
-          <Pressable
-            style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
-            onPress={() =>
-              router.push({ pathname: '/turno-detalle', params: { id: item.id } })
-            }
-          >
-            <Text style={styles.hora}>{item.hora}</Text>
-            <View style={styles.filaPrincipal}>
-              <Text style={styles.cliente} numberOfLines={1}>
-                {nombreCliente}
-              </Text>
-              <Text style={styles.precio}>
-                ${item.monto.toLocaleString('es-AR')}
-              </Text>
-            </View>
-            <Text style={styles.servicio}>{item.servicio}</Text>
-          </Pressable>
-        );
-      }}
+      renderItem={({ item }) => (
+        <Pressable
+          style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+          onPress={() =>
+            router.push({ pathname: '/turno-detalle', params: { id: item.id } })
+          }
+        >
+          <Text style={styles.hora}>{item.hora}</Text>
+          <View style={styles.filaPrincipal}>
+            <Text style={styles.cliente} numberOfLines={1}>
+              {item.nombreCliente}
+            </Text>
+            <Text style={styles.precio}>
+              ${item.monto.toLocaleString('es-AR')}
+            </Text>
+          </View>
+          <Text style={styles.servicio}>{item.servicio}</Text>
+        </Pressable>
+      )}
     />
   );
 }

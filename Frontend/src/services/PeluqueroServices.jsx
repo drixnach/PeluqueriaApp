@@ -2,6 +2,8 @@ import {apiFetch} from './ApiFetch'
 
 const URL="http://localhost:5143/api/Peluquero"
 
+
+
 export async function obtenerPeluqueros(){
   const response=await fetch(URL)
 

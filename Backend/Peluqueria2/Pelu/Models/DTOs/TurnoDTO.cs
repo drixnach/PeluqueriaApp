@@ -27,5 +27,6 @@
         public string? NombrePeluquero { get; set; }
         public string?NombrePeluqueria { get; set; }
         public List<ServiciosTurnoDTO> Servicios { get; set; } = new();
+        public int? ClienteId { get; set; }
     }
 }

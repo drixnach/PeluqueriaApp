@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C4479D17-7999-6113-9580-2BA94A8276B3}|Pelu\\Pelu.csproj|e:\\aprendiendo a programar2\\tec dev web\\peluqueriaapprepo\\peluqueriaapp\\backend\\peluqueria2\\pelu\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C4479D17-7999-6113-9580-2BA94A8276B3}|Pelu\\Pelu.csproj|solutionrelative:pelu\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C4479D17-7999-6113-9580-2BA94A8276B3}|Pelu\\Pelu.csproj|e:\\aprendiendo a programar2\\tec dev web\\peluqueriaapprepo\\peluqueriaapp\\backend\\peluqueria2\\pelu\\controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4479D17-7999-6113-9580-2BA94A8276B3}|Pelu\\Pelu.csproj|solutionrelative:pelu\\controllers\\clientescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4479D17-7999-6113-9580-2BA94A8276B3}|Pelu\\Pelu.csproj|e:\\aprendiendo a programar2\\tec dev web\\peluqueriaapprepo\\peluqueriaapp\\backend\\peluqueria2\\pelu\\controllers\\turnocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4479D17-7999-6113-9580-2BA94A8276B3}|Pelu\\Pelu.csproj|solutionrelative:pelu\\controllers\\turnocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4479D17-7999-6113-9580-2BA94A8276B3}|Pelu\\Pelu.csproj|e:\\aprendiendo a programar2\\tec dev web\\peluqueriaapprepo\\peluqueriaapp\\backend\\peluqueria2\\pelu\\models\\dtos\\turnodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4479D17-7999-6113-9580-2BA94A8276B3}|Pelu\\Pelu.csproj|solutionrelative:pelu\\models\\dtos\\turnodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,15 +39,39 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "Pelu\\Controllers\\AuthController.cs",
-              "ToolTip": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "Pelu\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAG4AAAAAAAAAAAAuwHMAAABAAAAAAAAAAA==",
+              "Title": "ClientesController.cs",
+              "DocumentMoniker": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Controllers\\ClientesController.cs",
+              "RelativeDocumentMoniker": "Pelu\\Controllers\\ClientesController.cs",
+              "ToolTip": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Controllers\\ClientesController.cs",
+              "RelativeToolTip": "Pelu\\Controllers\\ClientesController.cs",
+              "ViewState": "AgIAAMgAAAAAAAAAAAAAwNwAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-24T11:53:14.561Z",
+              "WhenOpened": "2026-10-26T15:13:47.434Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TurnoDTO.cs",
+              "DocumentMoniker": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Models\\DTOs\\TurnoDTO.cs",
+              "RelativeDocumentMoniker": "Pelu\\Models\\DTOs\\TurnoDTO.cs",
+              "ToolTip": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Models\\DTOs\\TurnoDTO.cs",
+              "RelativeToolTip": "Pelu\\Models\\DTOs\\TurnoDTO.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAA1wB0AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-26T14:21:46.683Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TurnoController.cs",
+              "DocumentMoniker": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Controllers\\TurnoController.cs",
+              "RelativeDocumentMoniker": "Pelu\\Controllers\\TurnoController.cs",
+              "ToolTip": "E:\\Aprendiendo a programar2\\Tec dev web\\PeluqueriaAppRepo\\PeluqueriaApp\\Backend\\Peluqueria2\\Pelu\\Controllers\\TurnoController.cs",
+              "RelativeToolTip": "Pelu\\Controllers\\TurnoController.cs",
+              "ViewState": "AgIAABUBAAAAAAAAAAAAAFUBAABdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-23T16:10:02.619Z"
             }
           ]
         }

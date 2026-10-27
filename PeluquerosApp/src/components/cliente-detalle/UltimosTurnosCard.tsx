@@ -1,35 +1,47 @@
-import { StyleSheet, Text, View } from 'react-native';
-import type { Cliente } from '@/constants/clientes';
-import { TURNOS } from '@/constants/turnos';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import type { ClienteVista } from '@/api/useMisClientes';
+import { useTurnosDeCliente, aTurnoVista } from '@/api/useMisTurnos';
 
 type UltimosTurnosCardProps = {
-  cliente: Cliente;
+  cliente: ClienteVista;
 };
 
 export function UltimosTurnosCard({ cliente }: UltimosTurnosCardProps) {
-  const turnosCliente = TURNOS.filter((t) => t.clienteId === cliente.id)
-    .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime())
+  const { data, isLoading, isError } = useTurnosDeCliente(cliente.id);
+
+  const turnosCliente = (data ?? [])
+    .map(aTurnoVista)
+    .sort((a, b) => `${b.fecha} ${b.hora}`.localeCompare(`${a.fecha} ${a.hora}`))
     .slice(0, 3);
 
   return (
     <View style={styles.containerCard}>
       <Text style={styles.titulo}>Últimos Turnos</Text>
-      {turnosCliente.map((turno, index) => (
-        <View key={turno.id}>
-          <View style={styles.turnoItem}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.servicio}>{turno.servicio}</Text>
-              <View style={styles.infoRow}>
-                <Text style={styles.fecha}>{formatoFecha(turno.fecha)}</Text>
-                <Text style={styles.separador}>·</Text>
-                <Text style={styles.peluquero}>{turno.peluquero}</Text>
+
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : isError ? (
+        <Text style={styles.vacio}>No se pudieron cargar los turnos</Text>
+      ) : turnosCliente.length === 0 ? (
+        <Text style={styles.vacio}>Todavía no hay turnos</Text>
+      ) : (
+        turnosCliente.map((turno, index) => (
+          <View key={turno.id}>
+            <View style={styles.turnoItem}>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.servicio}>{turno.servicio}</Text>
+                <View style={styles.infoRow}>
+                  <Text style={styles.fecha}>{formatoFecha(turno.fecha)}</Text>
+                  <Text style={styles.separador}>·</Text>
+                  <Text style={styles.peluquero}>{turno.peluquero}</Text>
+                </View>
               </View>
+              <Text style={styles.monto}>${turno.monto.toLocaleString('es-AR')}</Text>
             </View>
-            <Text style={styles.monto}>${turno.monto.toLocaleString('es-AR')}</Text>
+            {index < turnosCliente.length - 1 && <View style={styles.lineaDivisoria} />}
           </View>
-          {index < turnosCliente.length - 1 && <View style={styles.lineaDivisoria} />}
-        </View>
-      ))}
+        ))
+      )}
     </View>
   );
 }
@@ -60,6 +72,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#202124',
     marginBottom: 16,
+  },
+  vacio: {
+    fontSize: 14,
+    color: '#5f6368',
   },
   turnoItem: {
     flexDirection: 'row',
