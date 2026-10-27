@@ -3,7 +3,7 @@ import { SymbolView } from 'expo-symbols';
 import { StyleSheet } from 'react-native';
 
 export const unstable_settings = {
-  initialRouteName: 'estadisticas',
+  initialRouteName: 'inicio',
 };
 
 export default function TabsLayout() {
@@ -11,8 +11,8 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#202124',
-        tabBarInactiveTintColor: '#9aa0a6',
+        tabBarActiveTintColor: '#333c87',
+        tabBarInactiveTintColor: '#4a5199',
         tabBarStyle: styles.tabBar,
         tabBarItemStyle: styles.tabItem,
         tabBarLabelStyle: styles.tabLabel,
@@ -59,6 +59,19 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="galeria"
+        options={{
+          title: 'Galería',
+          tabBarIcon: ({ color, size }) => (
+            <SymbolView
+              name={{ ios: 'photo.on.rectangle.angled', android: 'photo_library', web: 'photo_library' }}
+              tintColor={color}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="cliente-detalle"
         options={{
           href: null,
@@ -78,13 +91,13 @@ const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: '#ffffff',
     paddingTop: 6,
-    borderTopColor: '#e6e8eb',
+    borderTopColor: '#d7d9f0',
     borderTopWidth: 1,
     elevation: 8,
-    shadowColor: '#1f2937',
+    shadowColor: '#333c87',
     shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
   },
   tabItem: {
     flex: 1,

@@ -16,7 +16,7 @@ export function BuscadorClientes({ consulta, onQueryChange }: BuscadorClientesPr
             android: 'search',
             web: 'search',
           }}
-          tintColor="#7a8087"
+          tintColor="#4a5199"
           size={19}
         />
       <TextInput
@@ -25,7 +25,7 @@ export function BuscadorClientes({ consulta, onQueryChange }: BuscadorClientesPr
           onChangeText={onQueryChange}
         showSoftInputOnFocus={true}
         autoFocus={false}
-        placeholderTextColor="#9aa0a6"
+        placeholderTextColor="#7c81c9"
         style={styles.input}
       />
       </View>

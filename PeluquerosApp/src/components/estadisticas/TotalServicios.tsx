@@ -21,7 +21,7 @@ export function TotalServicios({ turnos }: TotalServiciosProps) {
             android: 'content_cut',
             web: 'content_cut',
           }}
-          tintColor="#5f6368"
+          tintColor="#4a5199"
           size={22}
         />
       </View>
@@ -42,13 +42,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 16,
     padding: 18,
-    shadowColor: '#1f2937',
+    shadowColor: '#333c87',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
+    shadowOpacity: 0.12,
+    shadowRadius: 14,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#e6e8eb',
+    borderColor: '#d7d9f0',
     width: '48%',
     aspectRatio: 1.25,
   },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#5f6368',
+    color: '#4a5199',
     letterSpacing: 0.5,
   },
   contenido: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   monto: {
     fontSize: 26,
     fontWeight: '700',
-    color: '#202124',
+    color: '#1a1f4d',
   },
   promedioServicios: {
     fontSize: 13,

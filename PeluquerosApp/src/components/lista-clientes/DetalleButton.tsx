@@ -20,7 +20,7 @@ export function DetalleButton({ clienteId }: DetalleButtonProps) {
           web: 'info',
         }}
         size={18}
-        tintColor="#5f6368"
+        tintColor="#4a5199"
         style={styles.icon}
       />
     </Pressable>

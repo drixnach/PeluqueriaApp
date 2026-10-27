@@ -19,7 +19,7 @@ export function ContactoClienteCard({ cliente }: ContactoClienteCardProps) {
             web: 'account_circle',
           }}
           size={88}
-          tintColor="#6b7280"
+          tintColor="#4a5199"
         />
         <Text style={styles.nombre}>{cliente.nombre} {cliente.apellido}</Text>
       </View>
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginHorizontal: 16,
     marginVertical: 12,
-    shadowColor: '#1f2937',
+    shadowColor: '#333c87',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
+    shadowOpacity: 0.12,
+    shadowRadius: 14,
     elevation: 3,
     overflow: 'hidden',
   },
@@ -70,12 +70,12 @@ const styles = StyleSheet.create({
     marginTop: 14,
     fontSize: 22,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
     textAlign: 'center',
   },
   lineaDivisoria : {
     height: 1,
-    backgroundColor: '#e6e8eb',
+    backgroundColor: '#d7d9f0',
     marginHorizontal: 16,
   },
   fila: {
@@ -88,6 +88,6 @@ const styles = StyleSheet.create({
   infoText: {
     flex: 1,
     fontSize: 15,
-    color: '#3c4043',
+    color: '#4a5199',
   },
 });

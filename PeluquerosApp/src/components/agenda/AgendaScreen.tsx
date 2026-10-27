@@ -46,12 +46,12 @@ export function AgendaScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ffffff',
     paddingTop: 22,
   },
   encabezado: {
     paddingHorizontal: 16,
-    marginBottom: 16,
+    marginBottom: 10,
   },
   estado: {
     paddingVertical: 32,

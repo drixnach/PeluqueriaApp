@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         letterSpacing: -0.4,
     },
     subtitulo: {
-        color: '#7a8087',
+        color: '#4a5199',
         fontSize: 13,
         marginTop: 4,
     },

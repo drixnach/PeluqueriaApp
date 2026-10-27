@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 16,
     padding: 20,
-    shadowColor: '#1f2937',
+    shadowColor: '#333c87',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
+    shadowOpacity: 0.12,
+    shadowRadius: 14,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#e6e8eb',
+    borderColor: '#d7d9f0',
     marginHorizontal: 16,
     marginTop: 16,
     marginBottom: 8,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
     marginBottom: 16,
   },
   vacio: {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   lineaDivisoria: {
     height: 1,
-    backgroundColor: '#e6e8eb',
+    backgroundColor: '#d7d9f0',
     marginHorizontal: 20,
   },
   infoRow: {
@@ -96,20 +96,20 @@ const styles = StyleSheet.create({
   servicio: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
     marginBottom: 6,
   },
   fecha: {
     fontSize: 13,
-    color: '#5f6368',
+    color: '#4a5199',
   },
   separador: {
     fontSize: 13,
-    color: '#9aa0a6',
+    color: '#7c81c9',
   },
   peluquero: {
     fontSize: 13,
-    color: '#5f6368',
+    color: '#4a5199',
     fontWeight: '500',
   },
   monto: {

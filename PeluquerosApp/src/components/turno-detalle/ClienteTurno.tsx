@@ -18,7 +18,7 @@ export function ClienteTurno({ clienteId, nombre }: ClienteTurnoProps) {
             web: 'account_circle',
           }}
           size={32}
-          tintColor="#6b7280"
+          tintColor="#4a5199"
         />
       </View>
 
@@ -41,7 +41,7 @@ export function ClienteTurno({ clienteId, nombre }: ClienteTurnoProps) {
             web: 'chevron_right',
           }}
           size={16}
-          tintColor="#5f6368"
+          tintColor="#4a5199"
           style={styles.icon}
         />
       </Pressable>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     fontWeight: '700',
-    color: '#202124',
+    color: '#1a1f4d',
   },
   button: {
     flexDirection: 'row',
