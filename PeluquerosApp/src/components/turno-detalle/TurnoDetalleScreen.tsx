@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#202124',
+    color: '#1a1f4d',
     marginBottom: 16,
   },
   card: {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   cliente: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
   },
   center: {
     flex: 1,
@@ -76,6 +76,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    color: '#5f6368',
+    color: '#4a5199',
   },
 });

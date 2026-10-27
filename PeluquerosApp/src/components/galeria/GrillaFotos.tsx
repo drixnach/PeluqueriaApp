@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   vacioTexto: {
     fontSize: 16,
-    color: '#5f6368',
+    color: '#4a5199',
     textAlign: 'center',
   },
   lista: {

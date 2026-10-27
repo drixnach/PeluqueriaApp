@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   fecha: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#3c4043',
+    color: '#4a5199',
   },
   fila: {
     flexDirection: 'row',
@@ -71,24 +71,24 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 13,
-    color: '#5f6368',
+    color: '#4a5199',
   },
   valor: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
   },
   servicio: {
     flexShrink: 1,
     fontSize: 14,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
     textAlign: 'right',
   },
   precio: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
   },
   divisor: {
     height: 1,
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   labelTotal: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
   },
   total: {
     fontSize: 18,

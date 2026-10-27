@@ -61,18 +61,18 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
     marginBottom: 12,
   },
   vacio: {
     fontSize: 14,
-    color: '#5f6368',
+    color: '#4a5199',
     textAlign: 'center',
     backgroundColor: '#fff',
     borderRadius: 16,
     padding: 20,
     borderWidth: 1,
-    borderColor: '#e6e8eb',
+    borderColor: '#d7d9f0',
   },
   card: {
     flexDirection: 'row',
@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 14,
     marginBottom: 12,
-    shadowColor: '#1f2937',
+    shadowColor: '#333c87',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
+    shadowOpacity: 0.12,
+    shadowRadius: 14,
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#e6e8eb',
+    borderColor: '#d7d9f0',
   },
   cuadradoFecha: {
     width: 56,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   hora: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#9aa0a6',
+    color: '#7c81c9',
     marginTop: 2,
   },
   datos: {
@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
   nombre: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
     marginBottom: 4,
   },
   servicio: {
     fontSize: 13,
-    color: '#7a8087',
+    color: '#7c81c9',
   },
   precio: {
     fontSize: 17,

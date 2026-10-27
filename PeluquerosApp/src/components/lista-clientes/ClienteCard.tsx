@@ -23,7 +23,7 @@ export function ClienteCard({ clientes }: ClienteCardProps) {
                   android: 'account_circle',
                   web: 'account_circle',
                 }}
-                tintColor="#6b7280"
+                tintColor="#4a5199"
                 size={32}
               />
             </View>
@@ -54,15 +54,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#ffffff',
-    borderColor: '#e6e8eb',
+    borderColor: '#d7d9f0',
     borderWidth: 1,
     borderRadius: 14,
     padding: 14,
     marginBottom: 12,
-    shadowColor: '#1f2937',
+    shadowColor: '#333c87',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
     elevation: 1,
   },
   avatar: {
@@ -79,17 +79,17 @@ const styles = StyleSheet.create({
     gap: 3,
   },
   nombre: {
-    color: '#202124',
+    color: '#1a1f4d',
     fontWeight: '600',
     fontSize: 15,
   },
   telefono: {
-    color: '#5f6368',
+    color: '#4a5199',
     fontSize: 13,
     marginTop: 2,
   },
   email: {
-    color: '#7a8087',
+    color: '#7c81c9',
     fontSize: 12,
   },
 });

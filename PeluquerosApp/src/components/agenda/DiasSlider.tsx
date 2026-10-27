@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 0,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#d9d9d9',
+    borderBottomColor: '#d7d9f0',
   },
   dia: {
     flex: 1,
@@ -136,16 +136,16 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   diaSeleccionado: {
-    backgroundColor: '#767677',
+    backgroundColor: '#333c87',
   },
   etiqueta: {
     fontSize: 12,
-    color: '#9aa0a6',
+    color: '#4a5199',
   },
   numero: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
   },
   textoSeleccionado: {
     color: '#fff',

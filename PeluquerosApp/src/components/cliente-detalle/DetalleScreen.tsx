@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
-    color: '#5f6368',
+    color: '#4a5199',
   },
 });

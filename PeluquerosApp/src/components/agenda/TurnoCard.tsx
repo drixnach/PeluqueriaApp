@@ -60,15 +60,15 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#ffffff',
-    borderColor: '#e6e8eb',
+    borderColor: '#d7d9f0',
     borderWidth: 1,
     borderRadius: 14,
     padding: 14,
     marginBottom: 12,
-    shadowColor: '#1f2937',
+    shadowColor: '#333c87',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
     elevation: 1,
   },
   cardPressed: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   hora: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#5f6368',
+    color: '#4a5199',
     marginBottom: 6,
   },
   filaPrincipal: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontWeight: '600',
-    color: '#202124',
+    color: '#1a1f4d',
   },
   precio: {
     fontSize: 16,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   servicio: {
     marginTop: 4,
     fontSize: 13,
-    color: '#5f6368',
+    color: '#4a5199',
   },
   vacio: {
     paddingVertical: 32,
@@ -108,6 +108,6 @@ const styles = StyleSheet.create({
   },
   textoVacio: {
     fontSize: 14,
-    color: '#5f6368',
+    color: '#4a5199',
   },
 });
