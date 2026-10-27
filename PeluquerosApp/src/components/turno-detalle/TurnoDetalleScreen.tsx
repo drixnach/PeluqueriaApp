@@ -59,21 +59,8 @@ export function TurnoDetalleScreen() {
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
   container: { flex: 1, backgroundColor: '#fff' },
-  titulo: { fontSize: 18, fontWeight: '700', color: '#202124', marginBottom: 16 },
-=======
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  titulo: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#1a1f4d',
-    marginBottom: 16,
-  },
->>>>>>> c0c5f7e3c1170698bc161c5fb6a3eb68156927c8
+  titulo: { fontSize: 18, fontWeight: '700', color: '#1a1f4d', marginBottom: 16 },
   card: {
     flex: 1,
     backgroundColor: '#ffffff',
@@ -81,19 +68,8 @@ const styles = StyleSheet.create({
     paddingTop: 22,
     paddingBottom: 24,
   },
-<<<<<<< HEAD
   footer: { marginTop: 16 },
-  cliente: { fontSize: 16, fontWeight: '600', color: '#202124' },
-=======
-  footer: {
-    marginTop: 16,
-  },
-  cliente: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1a1f4d',
-  },
->>>>>>> c0c5f7e3c1170698bc161c5fb6a3eb68156927c8
+  cliente: { fontSize: 16, fontWeight: '600', color: '#1a1f4d' },
   center: {
     flex: 1,
     justifyContent: 'center',
@@ -101,14 +77,6 @@ const styles = StyleSheet.create({
     gap: 12,
     backgroundColor: '#fff',
   },
-<<<<<<< HEAD
-  errorText: { fontSize: 16, color: '#5f6368' },
-  reintentar: { fontSize: 14, fontWeight: '600', color: '#3c4043' },
+  errorText: { fontSize: 16, color: '#4a5199' },
+  reintentar: { fontSize: 14, fontWeight: '600', color: '#4a5199' },
 });
-=======
-  errorText: {
-    fontSize: 16,
-    color: '#4a5199',
-  },
-});
->>>>>>> c0c5f7e3c1170698bc161c5fb6a3eb68156927c8
