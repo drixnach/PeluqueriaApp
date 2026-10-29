@@ -1,5 +1,6 @@
 import { SymbolView } from 'expo-symbols';
 import { StyleSheet, TextInput, View } from 'react-native';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type BuscadorClientesProps = {
   consulta: string;
@@ -7,16 +8,17 @@ type BuscadorClientesProps = {
 };
 
 export function BuscadorClientes({ consulta, onQueryChange }: BuscadorClientesProps) {
+  const { colors } = useTheme();
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
+      <View style={[styles.inputContainer, { backgroundColor: colors.inputBackground, borderColor: colors.border }]}>
         <SymbolView
           name={{
             ios: 'magnifyingglass',
             android: 'search',
             web: 'search',
           }}
-          tintColor="#4a5199"
+          tintColor={colors.primaryInactive}
           size={19}
         />
       <TextInput
@@ -25,8 +27,8 @@ export function BuscadorClientes({ consulta, onQueryChange }: BuscadorClientesPr
           onChangeText={onQueryChange}
         showSoftInputOnFocus={true}
         autoFocus={false}
-        placeholderTextColor="#7c81c9"
-        style={styles.input}
+        placeholderTextColor={colors.primaryInactive}
+        style={[styles.input, { color: colors.text }]}
       />
       </View>
 
@@ -43,8 +45,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8f9fa',
-    borderColor: '#e1e4e8',
     borderWidth: 1,
     borderRadius: 12,
     paddingHorizontal: 13,
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    color: '#202124',
     fontSize: 14,
     paddingVertical: 0,
     paddingLeft: 10,
   },
 });
+

@@ -1,19 +1,22 @@
 import { Tabs } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { StyleSheet } from 'react-native';
+import { useTheme } from '@/theme/ThemeProvider';
 
 export const unstable_settings = {
   initialRouteName: 'inicio',
 };
 
 export default function TabsLayout() {
+  const { colors } = useTheme();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#333c87',
-        tabBarInactiveTintColor: '#4a5199',
-        tabBarStyle: styles.tabBar,
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.primaryInactive,
+        tabBarStyle: [styles.tabBar, { backgroundColor: colors.tabBar, borderTopColor: colors.border }],
         tabBarItemStyle: styles.tabItem,
         tabBarLabelStyle: styles.tabLabel,
         tabBarHideOnKeyboard: true,
@@ -89,9 +92,7 @@ export default function TabsLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: '#ffffff',
     paddingTop: 6,
-    borderTopColor: '#d7d9f0',
     borderTopWidth: 1,
     elevation: 8,
     shadowColor: '#333c87',

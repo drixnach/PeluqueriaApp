@@ -1,12 +1,15 @@
 import { Alert, Linking, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { SymbolView } from 'expo-symbols';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type GaleriaButtonProps = {
   onFotoSeleccionada: (uri: string) => void;
 };
 
 export default function GaleriaButton({ onFotoSeleccionada }: GaleriaButtonProps) {
+  const { colors } = useTheme();
+
   const abrirAjustes = () => {
     Linking.openSettings();
   };
@@ -52,19 +55,23 @@ export default function GaleriaButton({ onFotoSeleccionada }: GaleriaButtonProps
         'Permiso requerido',
         'Necesitamos acceso a tu galería para seleccionar fotos.'
       );
-    } catch (error) {
+    } catch {
       Alert.alert('Error', 'No se pudo seleccionar la foto');
     }
   };
 
   return (
-    <TouchableOpacity style={styles.boton} onPress={seleccionarFoto} activeOpacity={0.8}>
+    <TouchableOpacity
+      style={[styles.boton, { backgroundColor: colors.card, borderColor: colors.border }]}
+      onPress={seleccionarFoto}
+      activeOpacity={0.8}
+    >
       <SymbolView
         name={{ ios: 'photo.fill', android: 'photo_library', web: 'photo_library' }}
-        tintColor="#202124"
+        tintColor={colors.primaryInactive}
         size={22}
       />
-      <Text style={styles.texto}>Galería</Text>
+      <Text style={[styles.texto, { color: colors.text }]}>Galería</Text>
     </TouchableOpacity>
   );
 }
@@ -75,18 +82,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#e6e8eb',
     gap: 8,
     marginHorizontal: 4,
   },
   texto: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#202124',
   },
 });

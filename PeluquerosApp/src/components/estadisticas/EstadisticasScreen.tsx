@@ -8,10 +8,12 @@ import { MesSlider } from './MesSlider';
 import { TotalServicios } from './TotalServicios';
 import { TotalVentas } from './TotalVentas';
 import { UltimoServicios } from './UltimoServicios';
+import { useTheme } from '@/theme/ThemeProvider';
 
 const SOLO_REALIZADOS = false; //es para probar lo cambio a true cuando agregue los estados de realizado o pendiente o cancelado
 
 export function EstadisticasScreen() {
+  const { colors } = useTheme();
   const [mesSeleccionado, setMesSeleccionado] = useState(() => {
     const hoy = new Date();
     return new Date(hoy.getFullYear(), hoy.getMonth(), 1);
@@ -41,15 +43,17 @@ export function EstadisticasScreen() {
     .filter((turno) => !SOLO_REALIZADOS || `${turno.fecha} ${turno.hora}` <= ahoraTexto);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contenido}>
+    <ScrollView style={[styles.container, { backgroundColor: colors.background }]} contentContainerStyle={styles.contenido}>
       <EstadisticasHeader />
       <MesSlider mes={mesSeleccionado} onCambiarMes={cambiarMes} />
 
       {isLoading ? (
-        <ActivityIndicator style={styles.estado} />
+        <ActivityIndicator style={styles.estado} color={colors.primary} />
       ) : isError ? (
         <Pressable onPress={() => refetch()} style={styles.estado}>
-          <Text>No se pudieron cargar las estadísticas. Tocá para reintentar.</Text>
+          <Text style={[styles.texto, { color: colors.muted }]}>
+            No se pudieron cargar las estadísticas. Tocá para reintentar.
+          </Text>
         </Pressable>
       ) : (
         <>
@@ -67,7 +71,6 @@ export function EstadisticasScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   contenido: {
     paddingHorizontal: 16,
@@ -81,7 +84,10 @@ const styles = StyleSheet.create({
   },
 
   estado: {
-  paddingVertical: 32,
-  alignItems: 'center',
-},
+    paddingVertical: 32,
+    alignItems: 'center',
+  },
+  texto: {
+    fontSize: 14,
+  },
 });

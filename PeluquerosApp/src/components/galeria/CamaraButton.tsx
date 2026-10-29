@@ -2,12 +2,14 @@ import { useRef, useState } from 'react';
 import { Alert, Linking, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { SymbolView } from 'expo-symbols';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type CamaraButtonProps = {
   onFotoTomada: (uri: string) => void;
 };
 
 export default function CamaraButton({ onFotoTomada }: CamaraButtonProps) {
+  const { colors } = useTheme();
   const [permission, requestPermission] = useCameraPermissions();
   const [modalVisible, setModalVisible] = useState(false);
   const cameraRef = useRef<CameraView>(null);
@@ -69,7 +71,7 @@ export default function CamaraButton({ onFotoTomada }: CamaraButtonProps) {
           onFotoTomada(photo.uri);
           setModalVisible(false);
         }
-      } catch (error) {
+      } catch {
         Alert.alert('Error', 'No se pudo tomar la foto');
       }
     }
@@ -81,13 +83,17 @@ export default function CamaraButton({ onFotoTomada }: CamaraButtonProps) {
 
   return (
     <>
-      <TouchableOpacity style={styles.boton} onPress={handlePress} activeOpacity={0.8}>
+      <TouchableOpacity
+        style={[styles.boton, { backgroundColor: colors.card, borderColor: colors.border }]}
+        onPress={handlePress}
+        activeOpacity={0.8}
+      >
         <SymbolView
           name={{ ios: 'camera.fill', android: 'camera_alt', web: 'photo_camera' }}
-          tintColor="#202124"
+          tintColor={colors.primaryInactive}
           size={22}
         />
-        <Text style={styles.texto}>Cámara</Text>
+        <Text style={[styles.texto, { color: colors.text }]}>Cámara</Text>
       </TouchableOpacity>
 
       <Modal visible={modalVisible} animationType="slide" onRequestClose={cerrarModal}>
@@ -114,19 +120,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#e6e8eb',
     gap: 8,
     marginHorizontal: 4,
   },
   texto: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#202124',
   },
   modalContainer: {
     flex: 1,

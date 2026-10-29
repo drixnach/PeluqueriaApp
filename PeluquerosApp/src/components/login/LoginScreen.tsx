@@ -12,13 +12,14 @@ import { LoginHeader } from './LoginHeader';
 import { LoginForm } from './LoginForm';
 import { LoginButton } from './LoginButton';
 import { useLogin } from '@/api/useLogin';
-import Login from '@/app/login';
+import { useTheme } from '@/theme/ThemeProvider';
 
 export function LoginScreen() {
 
     const [email, setEmail]=useState('');
     const [password, setPassword]=useState('')
     const { mutate: login, isPending } = useLogin();
+    const { colors } = useTheme();
 
     const validarLogin=()=>{
         if(!email||!/\S+@\S+\.\S+/.test(email)){
@@ -41,7 +42,7 @@ export function LoginScreen() {
     login(
       {email, password},
       {
-        onSuccess:()=>router.replace('/estadisticas'),
+        onSuccess:()=>router.replace('/inicio'),
         onError:(error)=>Alert.alert('Error',error.message),
       }
     )
@@ -51,13 +52,13 @@ export function LoginScreen() {
     return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
+      style={[styles.container, { backgroundColor: colors.background }]}
     >
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.formCard}>
+        <View style={[styles.formCard, { backgroundColor: colors.card, shadowColor: colors.primary }]}>
           <LoginHeader />
           <LoginForm
             email={email}
@@ -75,7 +76,6 @@ export function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
     padding: 20,
   },
   scrollContent: {
@@ -86,10 +86,8 @@ const styles = StyleSheet.create({
   formCard: {
     width: '100%',
     maxWidth: 400,
-    backgroundColor: '#ffffff',
     borderRadius: 12,
     padding: 24,
-    shadowColor: '#333c87',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.12,
     shadowRadius: 10,

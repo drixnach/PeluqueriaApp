@@ -1,11 +1,13 @@
 import { Linking, Pressable, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type TelefonoButtonProps = {
   telefono: string;
 };
 
 export function TelefonoButton({ telefono }: TelefonoButtonProps) {
+  const { colors } = useTheme();
   const telefonoLimpio = telefono.replace(/\D/g, '');
   const whatsappUrl = `https://wa.me/54${telefonoLimpio}`;
 
@@ -14,7 +16,11 @@ export function TelefonoButton({ telefono }: TelefonoButtonProps) {
   };
 
   return (
-    <Pressable onPress={handlePress} style={styles.actionBtn} hitSlop={8}>
+    <Pressable
+      onPress={handlePress}
+      style={[styles.actionBtn, { backgroundColor: colors.inputBackground }]}
+      hitSlop={8}
+    >
       <SymbolView
         name={{
           ios: 'message',
@@ -34,7 +40,6 @@ const styles = StyleSheet.create({
     minHeight: 48,
     padding: 12,
     borderRadius: 12,
-    backgroundColor: '#f1f3f5',
     justifyContent: 'center',
     alignItems: 'center',
   },

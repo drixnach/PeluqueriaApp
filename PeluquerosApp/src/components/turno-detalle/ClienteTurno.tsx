@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type ClienteTurnoProps = {
   clienteId: string;
@@ -8,9 +9,11 @@ type ClienteTurnoProps = {
 };
 
 export function ClienteTurno({ clienteId, nombre }: ClienteTurnoProps) {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.fila}>
-      <View style={styles.avatar}>
+      <View style={[styles.avatar, { backgroundColor: colors.inputBackground }]}>
         <SymbolView
           name={{
             ios: 'person.crop.circle.fill',
@@ -18,22 +21,26 @@ export function ClienteTurno({ clienteId, nombre }: ClienteTurnoProps) {
             web: 'account_circle',
           }}
           size={32}
-          tintColor="#4a5199"
+          tintColor={colors.primaryInactive}
         />
       </View>
 
-      <Text style={styles.nombre} numberOfLines={1}>
+      <Text style={[styles.nombre, { color: colors.text }]} numberOfLines={1}>
         {nombre}
       </Text>
 
       <Pressable
-        style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+        style={({ pressed }) => [
+          styles.button,
+          { backgroundColor: colors.inputBackground, borderColor: colors.border },
+          pressed && styles.buttonPressed,
+        ]}
         onPress={() =>
           router.push({ pathname: '/cliente-detalle', params: { id: clienteId } })
         }
         hitSlop={8}
       >
-        <Text style={styles.buttonText}>Ver cliente</Text>
+        <Text style={[styles.buttonText, { color: colors.text }]}>Ver cliente</Text>
         <SymbolView
           name={{
             ios: 'chevron.right',
@@ -41,7 +48,7 @@ export function ClienteTurno({ clienteId, nombre }: ClienteTurnoProps) {
             web: 'chevron_right',
           }}
           size={16}
-          tintColor="#4a5199"
+          tintColor={colors.primaryInactive}
           style={styles.icon}
         />
       </Pressable>
@@ -59,7 +66,6 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#f1f3f5',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -67,7 +73,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     fontWeight: '700',
-    color: '#1a1f4d',
   },
   button: {
     flexDirection: 'row',
@@ -76,9 +81,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     height: 36,
     borderRadius: 10,
-    backgroundColor: '#f1f3f5',
     borderWidth: 1,
-    borderColor: '#e6e8eb',
   },
   buttonPressed: {
     opacity: 0.6,
@@ -86,7 +89,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#3c4043',
   },
   icon: {
     width: 16,

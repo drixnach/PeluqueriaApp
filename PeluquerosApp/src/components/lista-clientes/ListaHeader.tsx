@@ -1,19 +1,19 @@
 import { StyleSheet, Text, View } from 'react-native';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type ListaHeaderProps = {
     total: number;
 };
 
 export function ListaHeader({ total }: ListaHeaderProps) {
+    const { colors } = useTheme();
     return (
         <View style={styles.container}>
-            <Text style={styles.titulo}>Clientes</Text>
-            <Text style={styles.subtitulo}>{total} registrados</Text>
+            <Text style={[styles.titulo, { color: colors.text }]}>Clientes</Text>
+            <Text style={[styles.subtitulo, { color: colors.primaryInactive }]}>{total} registrados</Text>
         </View>
     );
 }
-
-// los styles quedan igual
 
 const styles = StyleSheet.create({
     container: {
@@ -22,14 +22,13 @@ const styles = StyleSheet.create({
         paddingBottom: 4,
     },
     titulo: {
-        color: '#202124',
         fontSize: 26,
         fontWeight: '700',
         letterSpacing: -0.4,
     },
     subtitulo: {
-        color: '#4a5199',
         fontSize: 13,
         marginTop: 4,
     },
 });
+

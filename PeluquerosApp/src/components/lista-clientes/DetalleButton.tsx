@@ -1,15 +1,22 @@
 import { Pressable, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type DetalleButtonProps = {
   clienteId: string;
 };
 
 export function DetalleButton({ clienteId }: DetalleButtonProps) {
+  const { colors } = useTheme();
+
   return (
     <Pressable
-      style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+      style={({ pressed }) => [
+        styles.button,
+        { backgroundColor: colors.inputBackground, borderColor: colors.border },
+        pressed && styles.buttonPressed,
+      ]}
       onPress={() => router.push({ pathname: '/cliente-detalle', params: { id: clienteId } })}
       hitSlop={8}
     >
@@ -20,7 +27,7 @@ export function DetalleButton({ clienteId }: DetalleButtonProps) {
           web: 'info',
         }}
         size={18}
-        tintColor="#4a5199"
+        tintColor={colors.primaryInactive}
         style={styles.icon}
       />
     </Pressable>
@@ -32,9 +39,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 10,
-    backgroundColor: '#f1f3f5',
     borderWidth: 1,
-    borderColor: '#e6e8eb',
     justifyContent: 'center',
     alignItems: 'center',
   },

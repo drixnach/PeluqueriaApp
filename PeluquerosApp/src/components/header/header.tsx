@@ -1,12 +1,19 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import ModoOscuroButton from "../modo-oscuro/ModoOscuroButton";
+import { useTheme } from "@/theme/ThemeProvider";
 
 
 export default function Header() {
+    const { colors } = useTheme();
+
     return (
-        <SafeAreaView edges={["top"]} style={styles.safeArea}>
-            <View style={styles.container}>
-                <Text style={styles.titulo}>Peluquería</Text>
+        <SafeAreaView edges={["top"]} style={[styles.safeArea, { backgroundColor: colors.tabBar, borderBottomColor: colors.border }]}>
+            <View style={[styles.container, { backgroundColor: colors.tabBar }]}>
+                <View style={styles.leftContainer}>
+                    <ModoOscuroButton />
+                </View>
+                <Text style={[styles.titulo, { color: colors.primary }]}>Peluquería</Text>
                 <Image
                     source={require('../../../assets/images/logo-pelu.png')}
                     style={styles.logo}
@@ -18,17 +25,14 @@ export default function Header() {
 
 const styles = StyleSheet.create({
     safeArea: {
-        backgroundColor: "#fff",
         borderBottomWidth: 2,
-        borderBottomColor: "#d7d9f0",
     },
     container: {
         minHeight: 52,
         alignItems: "center",
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
         flexDirection: "row",
         paddingHorizontal: 10,
-        backgroundColor: "#fff",
         position: 'relative',
     },
     titulo: {
@@ -39,13 +43,20 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontStyle: 'italic',
         fontWeight: '600',
-        color: "#333c87",
         letterSpacing: 0.8,
+    },
+    leftContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        zIndex: 1,
     },
     logo: {
         width: 64,
         height: 64,
         marginRight: 4,
         resizeMode: "contain",
+        zIndex: 1,
     }
 });
+
+

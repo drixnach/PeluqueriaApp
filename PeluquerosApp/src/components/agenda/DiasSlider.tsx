@@ -7,6 +7,7 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type DiasSliderProps = {
   fechaSeleccionada: Date;
@@ -34,6 +35,7 @@ function claveDia(fecha: Date): string {
 }
 
 export function DiasSlider({ fechaSeleccionada, onSeleccionarDia }: DiasSliderProps) {
+  const { colors } = useTheme();
   // Ancho completo de la pantalla: una semana por página
   const ancho = useWindowDimensions().width;
 
@@ -61,7 +63,7 @@ export function DiasSlider({ fechaSeleccionada, onSeleccionarDia }: DiasSliderPr
   };
 
   const renderSemana = ({ item }: { item: Date }) => (
-    <View style={[styles.card, { width: ancho }]}>
+    <View style={[styles.card, { width: ancho, borderBottomColor: colors.border }]}>
       {ETIQUETAS_DIAS.map((etiqueta, posicion) => {
         const dia = sumarDias(item, posicion);
         const seleccionado = claveDia(dia) === claveDia(fechaSeleccionada);
@@ -71,12 +73,12 @@ export function DiasSlider({ fechaSeleccionada, onSeleccionarDia }: DiasSliderPr
             accessibilityRole="button"
             accessibilityLabel={`${etiqueta} ${dia.getDate()}`}
             onPress={() => onSeleccionarDia(dia)}
-            style={[styles.dia, seleccionado && styles.diaSeleccionado]}
+            style={[styles.dia, seleccionado && [styles.diaSeleccionado, { backgroundColor: colors.primary }]]}
           >
-            <Text style={[styles.etiqueta, seleccionado && styles.textoSeleccionado]}>
+            <Text style={[styles.etiqueta, { color: colors.primaryInactive }, seleccionado && { color: colors.background }]}>
               {etiqueta}
             </Text>
-            <Text style={[styles.numero, seleccionado && styles.textoSeleccionado]}>
+            <Text style={[styles.numero, { color: colors.text }, seleccionado && { color: colors.background }]}>
               {dia.getDate()}
             </Text>
           </Pressable>
@@ -124,7 +126,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 0,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#d7d9f0',
   },
   dia: {
     flex: 1,
@@ -136,18 +137,13 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   diaSeleccionado: {
-    backgroundColor: '#333c87',
   },
   etiqueta: {
     fontSize: 12,
-    color: '#4a5199',
   },
   numero: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1a1f4d',
-  },
-  textoSeleccionado: {
-    color: '#fff',
   },
 });
+

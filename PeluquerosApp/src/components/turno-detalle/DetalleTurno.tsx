@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import type { TurnoVista } from '@/api/useMisTurnos';
 import { tituloDia } from '@/utils/fechas';
+import { useTheme } from '@/theme/ThemeProvider';
 
 
 type DetalleTurnoProps = {
@@ -17,31 +18,32 @@ function formatoMonto(monto: number): string {
 }
 
 export function DetalleTurno({ turno }: DetalleTurnoProps) {
+  const { colors } = useTheme();
   const dia = tituloDia(parseFecha(turno.fecha));
 
   return (
     <View style={styles.container}>
-      <Text style={styles.fecha}>
+      <Text style={[styles.fecha, { color: colors.primaryInactive }]}>
         {dia} a las {turno.hora}
       </Text>
 
       <View style={styles.fila}>
-        <Text style={styles.label}>Servicio</Text>
+        <Text style={[styles.label, { color: colors.primaryInactive }]}>Servicio</Text>
         <View style={styles.valorServicio}>
-          <Text style={styles.servicio}>{turno.servicio}</Text>
-          <Text style={styles.precio}>{formatoMonto(turno.monto)}</Text>
+          <Text style={[styles.servicio, { color: colors.text }]}>{turno.servicio}</Text>
+          <Text style={[styles.precio, { color: colors.text }]}>{formatoMonto(turno.monto)}</Text>
         </View>
       </View>
 
       <View style={styles.fila}>
-        <Text style={styles.label}>Peluquero</Text>
-        <Text style={styles.valor}>{turno.peluquero}</Text>
+        <Text style={[styles.label, { color: colors.primaryInactive }]}>Peluquero</Text>
+        <Text style={[styles.valor, { color: colors.text }]}>{turno.peluquero}</Text>
       </View>
 
-      <View style={styles.divisor} />
+      <View style={[styles.divisor, { backgroundColor: colors.border }]} />
 
       <View style={styles.filaTotal}>
-        <Text style={styles.labelTotal}>Total a pagar</Text>
+        <Text style={[styles.labelTotal, { color: colors.text }]}>Total a pagar</Text>
         <Text style={styles.total}>{formatoMonto(turno.monto)}</Text>
       </View>
     </View>
@@ -56,7 +58,6 @@ const styles = StyleSheet.create({
   fecha: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4a5199',
   },
   fila: {
     flexDirection: 'row',
@@ -72,28 +73,23 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 13,
-    color: '#4a5199',
   },
   valor: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1a1f4d',
   },
   servicio: {
     flexShrink: 1,
     fontSize: 14,
     fontWeight: '600',
-    color: '#1a1f4d',
     textAlign: 'right',
   },
   precio: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#1a1f4d',
   },
   divisor: {
     height: 1,
-    backgroundColor: '#e6e8eb',
   },
   filaTotal: {
     flexDirection: 'row',
@@ -103,7 +99,6 @@ const styles = StyleSheet.create({
   labelTotal: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#1a1f4d',
   },
   total: {
     fontSize: 18,

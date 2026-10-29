@@ -1,11 +1,14 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { router } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
+import { useTheme } from '@/theme/ThemeProvider';
 
 export function VolverAgendaButton() {
+  const { colors } = useTheme();
+
   return (
     <Pressable
-      style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+      style={({ pressed }) => [styles.button, { backgroundColor: colors.primary }, pressed && styles.buttonPressed]}
       onPress={() => router.navigate('/inicio')}
       hitSlop={8}
     >
@@ -16,10 +19,10 @@ export function VolverAgendaButton() {
           web: 'arrow_back',
         }}
         size={18}
-        tintColor="#ffffff"
+        tintColor={colors.background}
         style={styles.icon}
       />
-      <Text style={styles.texto}>Volver a la agenda</Text>
+      <Text style={[styles.texto, { color: colors.background }]}>Volver a la agenda</Text>
     </Pressable>
   );
 }
@@ -32,7 +35,6 @@ const styles = StyleSheet.create({
     gap: 8,
     height: 52,
     borderRadius: 14,
-    backgroundColor: '#202124',
   },
   buttonPressed: {
     opacity: 0.7,
@@ -44,6 +46,5 @@ const styles = StyleSheet.create({
   texto: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#ffffff',
   },
 });

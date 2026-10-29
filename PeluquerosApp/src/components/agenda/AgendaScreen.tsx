@@ -6,9 +6,11 @@ import { AgendaHeader } from './AgendaHeader';
 import { DiasSlider } from './DiasSlider';
 import { TurnoCard } from './TurnoCard';
 import { useRefetchOnFocus } from '@/api/useRefetchOnFocus';
+import { useTheme } from '@/theme/ThemeProvider';
 
 
 export function AgendaScreen() {
+  const { colors } = useTheme();
   const [fechaSeleccionada, setFechaSeleccionada] = useState(() => {
     const hoy = new Date();
     return new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
@@ -21,7 +23,7 @@ export function AgendaScreen() {
   const turnosDelDia=(data??[]).map(aTurnoVista).filter((turno)=>turno.fecha===diaIso).sort((a,b)=>a.hora.localeCompare(b.hora))
   
   return(
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.encabezado}>
         <AgendaHeader fecha={fechaSeleccionada} />
       </View>
@@ -31,10 +33,10 @@ export function AgendaScreen() {
       />
 
       {isLoading ? (
-        <ActivityIndicator style={styles.estado} />
+        <ActivityIndicator style={styles.estado} color={colors.primary} />
       ) : isError ? (
         <Pressable onPress={() => refetch()} style={styles.estado}>
-          <Text>No se pudo cargar la agenda. Tocá para reintentar.</Text>
+          <Text style={{ color: colors.text }}>No se pudo cargar la agenda. Tocá para reintentar.</Text>
         </Pressable>
       ) : (
         <TurnoCard turnos={turnosDelDia} />
@@ -46,7 +48,6 @@ export function AgendaScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
     paddingTop: 22,
   },
   encabezado: {

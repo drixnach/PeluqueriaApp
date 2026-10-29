@@ -4,13 +4,15 @@ import GrillaFotos from './GrillaFotos';
 import CamaraButton from './CamaraButton';
 import GaleriaButton from './GaleriaButton';
 import { useGaleriaStore } from '@/store/galeriaStore';
+import { useTheme } from '@/theme/ThemeProvider';
 
 export default function GaleriaScreen() {
   const { fotos, agregarFoto } = useGaleriaStore();
   const insets = useSafeAreaInsets();
+  const { colors } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.contenido}>
         <GrillaFotos fotos={fotos} />
       </View>
@@ -32,7 +34,6 @@ export default function GaleriaScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
   },
   contenido: {
     flex: 1,

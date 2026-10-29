@@ -1,17 +1,24 @@
 import { Linking, Pressable, StyleSheet } from 'react-native';
 import { SymbolView } from 'expo-symbols';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type CorreoButtonProps = {
   correo: string;
 };
 
 export function CorreoButton({ correo }: CorreoButtonProps) {
+  const { colors } = useTheme();
+
   const handlePress = () => {
     Linking.openURL(`mailto:${correo}`).catch(() => {});
   };
 
   return (
-    <Pressable onPress={handlePress} style={styles.actionBtn} hitSlop={8}>
+    <Pressable
+      onPress={handlePress}
+      style={[styles.actionBtn, { backgroundColor: colors.inputBackground }]}
+      hitSlop={8}
+    >
       <SymbolView
         name={{
           ios: 'mail',
@@ -31,7 +38,6 @@ const styles = StyleSheet.create({
     minHeight: 48,
     padding: 12,
     borderRadius: 12,
-    backgroundColor: '#f1f3f5',
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -4,27 +4,29 @@ import { useMiTurno, aTurnoVista } from '@/api/useMisTurnos';
 import { ClienteTurno } from '@/components/turno-detalle/ClienteTurno';
 import { DetalleTurno } from '@/components/turno-detalle/DetalleTurno';
 import { VolverAgendaButton } from '@/components/turno-detalle/VolverAgendaButton';
+import { useTheme } from '@/theme/ThemeProvider';
 
 export function TurnoDetalleScreen() {
   const { id } = useLocalSearchParams();
   const turnoId = Array.isArray(id) ? id[0] : id;
+  const { colors } = useTheme();
 
   const { data, isLoading, isError, error, refetch } = useMiTurno(turnoId);
 
   if (isLoading) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator />
+      <View style={[styles.center, { backgroundColor: colors.background }]}>
+        <ActivityIndicator color={colors.primary} />
       </View>
     );
   }
 
   if (isError) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.errorText}>{error?.message ?? 'Error al cargar el turno'}</Text>
+      <View style={[styles.center, { backgroundColor: colors.background }]}>
+        <Text style={[styles.errorText, { color: colors.primaryInactive }]}>{error?.message ?? 'Error al cargar el turno'}</Text>
         <Pressable onPress={() => refetch()} hitSlop={8}>
-          <Text style={styles.reintentar}>Tocá para reintentar</Text>
+          <Text style={[styles.reintentar, { color: colors.primary }]}>Tocá para reintentar</Text>
         </Pressable>
       </View>
     );
@@ -32,8 +34,8 @@ export function TurnoDetalleScreen() {
 
   if (!data) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.errorText}>Turno no encontrado</Text>
+      <View style={[styles.center, { backgroundColor: colors.background }]}>
+        <Text style={[styles.errorText, { color: colors.primaryInactive }]}>Turno no encontrado</Text>
       </View>
     );
   }
@@ -41,13 +43,13 @@ export function TurnoDetalleScreen() {
   const turno = aTurnoVista(data);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
-        <Text style={styles.titulo}>Detalle del turno</Text>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.card, { backgroundColor: colors.background }]}>
+        <Text style={[styles.titulo, { color: colors.text }]}>Detalle del turno</Text>
         {turno.clienteId ? (
           <ClienteTurno clienteId={turno.clienteId} nombre={turno.nombreCliente} />
         ) : (
-          <Text style={styles.cliente}>{turno.nombreCliente}</Text>
+          <Text style={[styles.cliente, { color: colors.text }]}>{turno.nombreCliente}</Text>
         )}
         <DetalleTurno turno={turno} />
         <View style={styles.footer}>
@@ -59,11 +61,10 @@ export function TurnoDetalleScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
-  titulo: { fontSize: 18, fontWeight: '700', color: '#1a1f4d', marginBottom: 16 },
+  container: { flex: 1 },
+  titulo: { fontSize: 18, fontWeight: '700', marginBottom: 16 },
   card: {
     flex: 1,
-    backgroundColor: '#ffffff',
     paddingHorizontal: 20,
     paddingTop: 22,
     paddingBottom: 24,

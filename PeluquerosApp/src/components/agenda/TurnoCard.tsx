@@ -1,12 +1,14 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import type { TurnoVista } from '@/api/useMisTurnos';
+import { useTheme } from '@/theme/ThemeProvider';
 
 type TurnoCardProps = {
   turnos: TurnoVista[];
 };
 
 export function TurnoCard({ turnos }: TurnoCardProps) {
+  const { colors } = useTheme();
   return (
     <FlatList
       data={turnos}
@@ -16,26 +18,26 @@ export function TurnoCard({ turnos }: TurnoCardProps) {
       showsVerticalScrollIndicator={false}
       ListEmptyComponent={
         <View style={styles.vacio}>
-          <Text style={styles.textoVacio}>No hay turnos para este día</Text>
+          <Text style={[styles.textoVacio, { color: colors.primaryInactive }]}>No hay turnos para este día</Text>
         </View>
       }
       renderItem={({ item }) => (
         <Pressable
-          style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+          style={({ pressed }) => [styles.card, { backgroundColor: colors.card, borderColor: colors.border }, pressed && styles.cardPressed]}
           onPress={() =>
             router.push({ pathname: '/turno-detalle', params: { id: item.id } })
           }
         >
-          <Text style={styles.hora}>{item.hora}</Text>
+          <Text style={[styles.hora, { color: colors.primaryInactive }]}>{item.hora}</Text>
           <View style={styles.filaPrincipal}>
-            <Text style={styles.cliente} numberOfLines={1}>
+            <Text style={[styles.cliente, { color: colors.text }]} numberOfLines={1}>
               {item.nombreCliente}
             </Text>
             <Text style={styles.precio}>
               ${item.monto.toLocaleString('es-AR')}
             </Text>
           </View>
-          <Text style={styles.servicio}>{item.servicio}</Text>
+          <Text style={[styles.servicio, { color: colors.primaryInactive }]}>{item.servicio}</Text>
         </Pressable>
       )}
     />
@@ -51,8 +53,6 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
   },
   card: {
-    backgroundColor: '#ffffff',
-    borderColor: '#d7d9f0',
     borderWidth: 1,
     borderRadius: 14,
     padding: 14,
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
   hora: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#4a5199',
     marginBottom: 6,
   },
   filaPrincipal: {
@@ -82,7 +81,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontWeight: '600',
-    color: '#1a1f4d',
   },
   precio: {
     fontSize: 16,
@@ -92,7 +90,6 @@ const styles = StyleSheet.create({
   servicio: {
     marginTop: 4,
     fontSize: 13,
-    color: '#4a5199',
   },
   vacio: {
     paddingVertical: 32,
@@ -100,6 +97,6 @@ const styles = StyleSheet.create({
   },
   textoVacio: {
     fontSize: 14,
-    color: '#4a5199',
   },
 });
+
