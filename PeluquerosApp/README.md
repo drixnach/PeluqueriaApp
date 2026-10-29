@@ -11,6 +11,12 @@ El proyecto busca resolver la gestión desordenada de turnos, clientes, comision
 - El cálculo de comisiones y las estadísticas de ventas del peluquero.
 - La galería de cortes, con fotos tomadas desde la cámara o elegidas desde la galería del teléfono.
 
+## Flujo de uso
+
+1. **El admin crea al peluquero (panel web):** desde la web, el administrador da de alta al peluquero y ahí mismo le asigna las credenciales (email y contraseña) para ingresar a la app móvil.
+2. **El peluquero inicia sesión (app móvil):** con las credenciales asignadas, el peluquero entra a la app desde su celular.
+3. **El peluquero consulta sus turnos (app móvil):** los turnos que los clientes reservan desde la web aparecen en la agenda de la app, donde el peluquero puede ver el detalle de cada turno, el historial de clientes, sus comisiones y estadísticas, y su galería de cortes.
+
 ## Integrantes
 
 - Francisco Gomez
